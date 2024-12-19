@@ -1,0 +1,21 @@
+{ lib, ... }:
+let inherit (lib) utils mkAliasOptionModule;
+in {
+  imports = utils.scanPaths ./. ++ [
+    (mkAliasOptionModule [ "desktop" "hyprland" "keybinds" ] [
+      "wayland"
+      "windowManager"
+      "hyprland"
+      "settings"
+      "bind"
+    ])
+
+    (mkAliasOptionModule [ "desktop" "hyprland" "settings" ] [
+      "wayland"
+      "windowManager"
+      "hyprland"
+      "settings"
+    ])
+  ];
+  modules.programs.anyrun.enable = lib.mkDefault true;
+}
