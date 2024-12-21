@@ -7,6 +7,7 @@ return {
     "lua",
     "ron",
     "bash",
+    "just",
     -- config
     "json",
     "jsonc",

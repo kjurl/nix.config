@@ -9,7 +9,7 @@ o.cursorlineopt = "both" -- to enable cursorline!
 o.cmdheight = 0
 
 vim.filetype.add {
-  pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
+  pattern = { [".*/hypr/.*%.conf"] = "hyprlang", [".envrc"] = "bash" },
 }
 
 autogroup("bufcheck", { clear = true })
