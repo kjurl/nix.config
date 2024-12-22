@@ -18,6 +18,8 @@ in {
       # waybar.enable = true;
       waybar.flavour = "link";
       office.enable = true;
+      spotify = ok;
+      discord = ok;
     };
 
     services = {

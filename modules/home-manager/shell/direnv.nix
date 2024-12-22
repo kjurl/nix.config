@@ -10,7 +10,7 @@ in lib.mkIf cfg.enable {
       global = {
         load_dotennv = true;
         strict_env = true;
-        warn_timout = -1;
+        warn_timout = "0";
       };
       whitelist.exact =
         [ "~/Documents/website" (builtins.readFile inputs.root.outPath) ];

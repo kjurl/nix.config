@@ -1,8 +1,7 @@
 { lib, pkgs, config, inputs, ... }:
 let inherit (lib) mkEnableOption;
 in {
-  imports = lib.utils.scanPaths ./.
-    ++ [ inputs.spicetify-nix.homeManagerModules.default ];
+  imports = lib.utils.scanPaths ./.;
   options.modules.programs = {
     git = {
       enable = mkEnableOption "git";
@@ -31,11 +30,21 @@ in {
     (lib.mkIf cfg.git.enable {
       programs.git = {
         enable = true;
+        lfs.enable = true;
         delta.enable = true;
         inherit (cfg.git) userName userEmail;
+        aliases = {
+          ci = "commit";
+          co = "checkout";
+          s = "status";
+        };
         extraConfig = {
           init.defaultBranch = "main";
+          push = { autoSetupRemote = true; };
           credentials.helper = "store";
+          credential.helper = "${
+              pkgs.git.override { withLibsecret = true; }
+            }/bin/git-credential-libsecret";
           color.ui = true;
         };
         ignores = [ "*~" "*.swp" "*result*" "node_modules" ];
@@ -56,18 +65,6 @@ in {
           defaultProfiles = [ "gpu-hq" ];
           scripts = [ pkgs.mpvScripts.mpris ];
         };
-        spicetify =
-          let spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
-          in {
-            enable = true;
-            enabledExtensions = with spicePkgs.extensions; [
-              adblock
-              hidePodcasts
-              shuffle # shuffle+
-            ];
-            # theme = spicePkgs.themes.catppuccin;
-            # colorScheme = "mocha";
-          };
       };
       xdg.mimeApps.defaultApplications = {
         "audio/*" = "mpv.desktop";
