@@ -1,9 +1,9 @@
-{ lib, pkgs, config, inputs, username, ... }: {
+{ lib, pkgs, config, inputs, ... }: {
   options.modules.programs.neovim.enable = lib.mkEnableOption "neovim";
   config = let
     cfg = config.modules.programs.neovim;
     mkMutableSymlink = path:
-      config.lib.file.mkOutOfStoreSymlink ("/home/${username}/NIXCONFIG"
+      config.lib.file.mkOutOfStoreSymlink (builtins.readFile inputs.root.outPath
         + lib.strings.removePrefix (toString inputs.self) (toString path));
   in lib.mkIf cfg.enable {
     programs.neovim = {

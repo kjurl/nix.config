@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, config, inputs, ... }:
 let cfg = config.modules.shell;
 in lib.mkIf cfg.enable {
   programs.direnv = {
@@ -12,7 +12,8 @@ in lib.mkIf cfg.enable {
         strict_env = true;
         warn_timout = -1;
       };
-      whitelist.exact = [ "~/Documents/website" ./. ];
+      whitelist.exact =
+        [ "~/Documents/website" (builtins.readFile inputs.root.outPath) ];
     };
   };
 }

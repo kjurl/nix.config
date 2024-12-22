@@ -1,5 +1,5 @@
-{ lib, config, inputs, outputs, ... }:
-let inherit (lib) isType mapAttrs filterAttrs mapAttrsToList;
+{ lib, config, inputs, ... }:
+let inherit (lib) isType mapAttrs filterAttrs;
 in {
   system.autoUpgrade = {
     enable = true;
@@ -53,7 +53,7 @@ in {
     gc = {
       automatic = true;
       dates = "weekly";
-      options = "--delete-older-than 14d";
+      options = "--delete-older-than 7d";
     };
     optimise.automatic = true;
   };

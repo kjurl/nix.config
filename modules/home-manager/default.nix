@@ -1,19 +1,26 @@
-{ lib, pkgs, username, ... }: {
+{ lib, pkgs, config, username, ... }: {
   imports = lib.utils.scanPaths ./.;
   home = {
     inherit username;
     homeDirectory = "/home/${username}";
     packages = with pkgs; [ nurl comma mangohud bottles motrix lutris ];
     sessionPath = [ "$HOME/.local/bin" ];
+    sessionVariables = { FLAKE = "/home/${username}/.config/nixos"; };
     # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
     stateVersion = "24.05";
+    activation.clean-nixDirectories =
+      lib.hm.dag.entryAfter [ "writeBoundary" ] # bash
+      ''
+        rm -rf ${config.home.homeDirectory}/.nix-defexpr
+        rm -rf ${config.home.homeDirectory}/.nix-profile
+      '';
   };
 
   programs.nh = {
     enable = true;
-    clean.enable = true;
-    clean.extraArgs = "--keep-since 4d --keep 3";
-    flake = ../../.;
+    # clean.enable = true;
+    # clean.extraArgs = "--keep-since 4d --keep 3";
+    # flake = ../../.;
   };
 
   xdg.configFile."mimeapps.list".force = true;

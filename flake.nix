@@ -1,5 +1,5 @@
 {
-  outputs = { self, nixpkgs, ... }@inputs:
+  outputs = { self, nixpkgs, flake-parts, ... }@inputs:
     let
       inherit (self) outputs;
       lP = nixpkgs.legacyPackages;
@@ -19,9 +19,10 @@
           ];
         };
       };
-    in {
-      checks = forAllSystems (system: {
-        lint-check = let pkgs = import nixpkgs { inherit system; };
+    in flake-parts.lib.mkFlake { inherit inputs; } {
+      imports = [ inputs.devenv.flakeModule ];
+      perSystem = { config, self', inputs', pkgs, system, ... }: {
+        checks.lint-check = let pkgs = import nixpkgs { inherit system; };
         in pkgs.runCommandLocal "lint-check" {
           src = ./.;
           nativeBuildInputs = with pkgs; [ statix deadnix ];
@@ -30,32 +31,71 @@
           statix check
           deadnix
         '';
-      });
-      formatter = forAllSystems (system: lP.${system}.nixfmt-classic);
-      packages = forAllSystems (system: import ./packages lP.${system});
-      libraries = lib;
-      nixosModules.modules = import ./modules/nixos; # upstream into nixpkgs
-      homeManagerModules.modules =
-        import ./modules/home-manager; # upstream into hm
-      nixosConfigurations = mkHost "di15-7567g" "kanishkc" "x86_64-linux";
+        formatter = lP.${system}.nixfmt-classic;
+        packages = import ./packages lP.${system};
+        devenv.shells.default = {
+          # https://github.com/cachix/devenv/issues/760
+          containers = lib.mkForce { };
+
+          devenv.root =
+            let devenvRootFileContent = builtins.readFile inputs.root.outPath;
+            in pkgs.lib.mkIf (devenvRootFileContent != "")
+            devenvRootFileContent;
+          packages = with pkgs; [ just lazygit ];
+          languages.nix = {
+            enable = true;
+            lsp.package = pkgs.nixd;
+          };
+          pre-commit.hooks.shellcheck.enable = true;
+          # See full reference at https://devenv.sh/reference/options/
+        };
+      };
+      flake = {
+        nixosModules.modules = import ./modules/nixos; # upstream into nixpkgs
+        homeManagerModules.modules =
+          import ./modules/home-manager; # upstream into hm
+        nixosConfigurations = mkHost "di15-7567g" "kanishkc" "x86_64-linux";
+      };
+      systems = [ "aarch64-linux" "x86_64-linux" "aarch64-darwin" ];
     };
+
+  # nixConfig = {
+  #   extra-trusted-public-keys =
+  #     "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=";
+  #   extra-substituters = "https://devenv.cachix.org";
+  # };
+  #
   inputs = {
-    # Core
+    root = {
+      url = "file+file:///dev/null";
+      flake = false;
+    };
+    # Official NixOS package source, using nixos's unstable branch by default
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    haumea = {
-      url = "github:nix-community/haumea/v0.2.2";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    winapps = {
-      url = "github:winapps-org/winapps/feat-nix-packaging";
+    impermanence.url = "github:nix-community/impermanence";
+    # nixlib.url = "github:nix-community/nixpkgs.lib";
+    nixos-generators.url = "github:nix-community/nixos-generators";
+    nixos-generators.inputs.nixpkgs.follows = "nixpkgs";
+    flake-utils-plus.url = "github:gytis-ivaskevicius/flake-utils-plus";
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    nixgaming.url = "github:fufexan/nix-gaming";
+    # nixpacks = {
+    #   url = "github:railwayapp/nixpacks";
+    #   inputs.utils.url = "flake-utils-plus";
+    #   inputs.nixpkgs.url = "nixpkgs";
+    # };
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+    haumea.url = "github:nix-community/haumea/v0.2.2";
+    haumea.inputs.nixpkgs.follows = "nixpkgs";
+    devenv.url = "github:cachix/devenv";
+    nix2container.url = "github:nlewo/nix2container";
+    nix2container.inputs.nixpkgs.follows = "nixpkgs";
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.4.1";
+      inputs.flake-parts.follows = "flake-parts";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland = {
@@ -69,6 +109,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.hyprland.follows = "hyprland";
     };
+    winapps = {
+      url = "github:winapps-org/winapps/feat-nix-packaging";
+      inputs.flake-utils.follows = "flake-utils-plus/flake-utils";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    gitignore.url = "github:hercules-ci/gitignore.nix";
+    gitignore.inputs.nixpkgs.follows = "nixpkgs";
     Hyprspace = {
       url = "github:KZDKM/Hyprspace";
       inputs.hyprland.follows = "hyprland";
