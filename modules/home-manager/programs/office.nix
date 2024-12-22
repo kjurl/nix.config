@@ -5,7 +5,13 @@ in {
   options.modules.programs.office.enable =
     lib.mkEnableOption "linux office suite";
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [ onlyoffice-bin todoist-electron obsidian ];
+    home.packages = with pkgs; [
+      onlyoffice-bin
+      todoist-electron
+      obsidian
+      gnome-text-editor
+      evince
+    ];
 
     programs.zathura = {
       enable = true;

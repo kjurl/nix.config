@@ -5,8 +5,6 @@
       lP = nixpkgs.legacyPackages;
       lib = nixpkgs.lib.extend (final: _prev:
         (import ./libraries.nix final) // inputs.home-manager.lib);
-      systems = [ "aarch64-linux" "x86_64-linux" "aarch64-darwin" ];
-      forAllSystems = lib.genAttrs systems;
       mkHost = hostname: username: system: {
         ${hostname} = lib.nixosSystem {
           inherit system;
@@ -20,8 +18,10 @@
         };
       };
     in flake-parts.lib.mkFlake { inherit inputs; } {
-      imports = [ inputs.devenv.flakeModule ];
-      perSystem = { config, self', inputs', pkgs, system, ... }: {
+      imports = with inputs; [ devenv.flakeModule nix-topology.flakeModule ];
+      perSystem = { config, self', inputs', pkgs, system, ... }@inputs: {
+        formatter = lP.${system}.nixfmt-classic;
+        packages = import ./packages lP.${system};
         checks.lint-check = let pkgs = import nixpkgs { inherit system; };
         in pkgs.runCommandLocal "lint-check" {
           src = ./.;
@@ -31,12 +31,12 @@
           statix check
           deadnix
         '';
-        formatter = lP.${system}.nixfmt-classic;
-        packages = import ./packages lP.${system};
         devenv.shells.default = {
           # https://github.com/cachix/devenv/issues/760
           containers = lib.mkForce { };
 
+          difftastic.enable = true;
+          devcontainer.enable = true;
           devenv.root =
             let devenvRootFileContent = builtins.readFile inputs.root.outPath;
             in pkgs.lib.mkIf (devenvRootFileContent != "")
@@ -76,6 +76,7 @@
     # nixlib.url = "github:nix-community/nixpkgs.lib";
     nixos-generators.url = "github:nix-community/nixos-generators";
     nixos-generators.inputs.nixpkgs.follows = "nixpkgs";
+    nix-topology.url = "github:oddlama/nix-topology";
     flake-utils-plus.url = "github:gytis-ivaskevicius/flake-utils-plus";
     flake-parts.url = "github:hercules-ci/flake-parts";
     nixgaming.url = "github:fufexan/nix-gaming";

@@ -29,6 +29,14 @@ show:
 test:
   nix eval .#evalTests --show-trace --print-build-logs --verbose
 
+
+# Generate topology image
+[group('nix')]
+topo:
+  nix build {{OVERRIDE_FLAKE_ROOT}} .#topology.x86_64-linux.config.output 
+
+
+
 # Generate Nix packages from URLs
 [group('nix')]
 init:
@@ -115,15 +123,6 @@ repair-store *paths:
 path:
    $env.PATH | split row ":"
 
-[group('common')]
-trace-access app *args:
-  strace -f -t -e trace=file {{app}} {{args}} | complete | $in.stderr | lines | find -v -r "(/nix/store|/newroot|/proc)" | parse --regex '"(/.+)"' | sort | uniq
-
-[linux]
-[group('common')]
-penvof pid:
-  sudo cat $"/proc/($pid)/environ" | tr '\0' '\n'
-
 # Remove all reflog entries and prune unreachable objects
 [group('git')]
 ggc:
@@ -134,18 +133,3 @@ ggc:
 [group('git')]
 game:
   git commit --amend -a --no-edit
-
-[linux]
-[group('services')]
-list-inactive:
-  systemctl list-units -all --state=inactive
-
-[linux]
-[group('services')]
-list-failed:
-  systemctl list-units -all --state=failed
-
-[linux]
-[group('services')]
-list-systemd:
-  systemctl list-units systemd-*
