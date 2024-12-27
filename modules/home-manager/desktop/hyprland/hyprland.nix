@@ -1,4 +1,4 @@
-{ lib, pkgs, config, osConfig, inputs, ... }:
+{ lib, pkgs, config, osConfig, ... }:
 let
   desktopCfg = config.modules.desktop;
   osDesktopEnabled = osConfig.modules.system.desktop.enable;
@@ -52,7 +52,6 @@ let
 
   exec_conf = {
     exec-once = [
-      "${pkgs.hyprpanel}/bin/hyprpanel"
       # Core components
       "gnome-keyring-daemon --start --components=secrets"
       "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 || /usr/libexec/polkit-gnome-authentication-agent-1"

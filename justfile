@@ -29,13 +29,10 @@ show:
 test:
   nix eval .#evalTests --show-trace --print-build-logs --verbose
 
-
 # Generate topology image
 [group('nix')]
 topo:
   nix build {{OVERRIDE_FLAKE_ROOT}} .#topology.x86_64-linux.config.output 
-
-
 
 # Generate Nix packages from URLs
 [group('nix')]

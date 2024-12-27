@@ -5,42 +5,24 @@
       lP = nixpkgs.legacyPackages;
       lib = nixpkgs.lib.extend (final: _prev:
         (import ./libraries.nix final) // inputs.home-manager.lib);
-      mkHost = hostname: username: system: {
-        ${hostname} = lib.nixosSystem {
-          inherit system;
-          specialArgs = { inherit self inputs outputs hostname username lib; };
-          modules = if (lib.hasPrefix "installer" hostname) then
-            [ ./systems/installer ]
-          else [
-            ./systems/${hostname}
-            ./modules/nixos
-          ];
-        };
-      };
     in flake-parts.lib.mkFlake { inherit inputs; } {
       imports = with inputs; [ devenv.flakeModule nix-topology.flakeModule ];
-      perSystem = { config, self', inputs', pkgs, system, ... }@inputs: {
+      perSystem = { config, self', inputs', pkgs, system, ... }: {
         formatter = lP.${system}.nixfmt-classic;
         packages = import ./packages lP.${system};
         checks.lint-check = let pkgs = import nixpkgs { inherit system; };
         in pkgs.runCommandLocal "lint-check" {
-          src = ./.;
           nativeBuildInputs = with pkgs; [ statix deadnix ];
-        } # bash
-        ''
-          statix check
-          deadnix
-        '';
+          src = ./.;
+        } "statix check; deadnix";
         devenv.shells.default = {
-          # https://github.com/cachix/devenv/issues/760
-          containers = lib.mkForce { };
-
-          difftastic.enable = true;
-          devcontainer.enable = true;
           devenv.root =
             let devenvRootFileContent = builtins.readFile inputs.root.outPath;
             in pkgs.lib.mkIf (devenvRootFileContent != "")
             devenvRootFileContent;
+          # https://github.com/cachix/devenv/issues/760
+          containers = lib.mkForce { };
+          difftastic.enable = true;
           packages = with pkgs; [ just lazygit ];
           languages.nix = {
             enable = true;
@@ -51,10 +33,25 @@
         };
       };
       flake = {
+        libraries = lib;
         nixosModules.modules = import ./modules/nixos; # upstream into nixpkgs
-        homeManagerModules.modules =
-          import ./modules/home-manager; # upstream into hm
-        nixosConfigurations = mkHost "di15-7567g" "kanishkc" "x86_64-linux";
+        homeManagerModules = import ./modules/home-manager; # upstream into hm
+        nixosConfigurations = let
+          mkHost = hostname: username: system: {
+            ${hostname} = lib.nixosSystem {
+              inherit system;
+              specialArgs = {
+                inherit self inputs outputs hostname username lib;
+              };
+              modules = if (lib.hasPrefix "installer" hostname) then
+                [ ./systems/installer ]
+              else [
+                ./systems/${hostname}
+                ./modules/nixos
+              ];
+            };
+          };
+        in mkHost "di15-7567g" "kanishkc" "x86_64-linux";
       };
       systems = [ "aarch64-linux" "x86_64-linux" "aarch64-darwin" ];
     };
@@ -139,6 +136,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
+    hyprpanel.inputs.nixpkgs.follows = "nixpkgs";
     stylix = {
       url = "github:danth/stylix";
       inputs = {
@@ -164,6 +162,10 @@
     };
     vencord-nix = {
       url = "github:kaylorben/nixcord";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    hyprland-qtutils = {
+      url = "github:hyprwm/hyprland-qtutils";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

@@ -23,11 +23,6 @@
 
       };
       loader = {
-##        grub = {
-  #        enable = true;
-   #       device = "nodev";
-    #      useOSProber = true;
-     #   };
         efi.canTouchEfiVariables = true;
         systemd-boot.enable = true;
         # https://github.com/TLATER/dotfiles/blob/444a85b014ad86dc5a9fa9e5e38c585dcb7958f7/nixos-config/default.nix#L81
@@ -56,23 +51,21 @@
       };
       kernelParams = lib.lists.unique ([
         "quiet"
+        "splash"
         "fbcon=nodefer"
         "vt.global_cursor_default=0"
         "kernel.modules_disabled=1"
         "lsm=landlock,lockdown,yama,integrity,apparmor,bpf,tomoyo,selinux"
-        "usbcore.autosuspend=-1"
-        "video4linux"
-        "acpi_rev_override=5"
-        "security=selinux"
-      ] ++ [
-        # Enable "Silent Boot"
-        "quiet"
-        "splash"
         "boot.shell_on_fail"
         "loglevel=3"
+        "usbcore.autosuspend=-1"
+        "video4linux"
+      ] ++ [
+        # Enable "Silent Boot"
         "rd.systemd.show_status=false"
         "rd.udev.log_level=3"
         "udev.log_priority=3"
+        "nowatchdog"
       ]);
       consoleLogLevel = 0;
       initrd.verbose = false;

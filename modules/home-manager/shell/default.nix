@@ -12,20 +12,8 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = (with pkgs; [
-      bottom # btm
-      curl
-      wget
-      fd
-      jq
-      file
-      killall
-      unrar
-      unzip
-      zip
-      yazi
-      zathura
-    ]) ++ lib.optionals cfg.sillyTools (with pkgs; [ cbonsai cmatrix cowsay ]);
+    home.packages = (with pkgs; [ curl btop wget fd killall unrar unzip zip ])
+      ++ lib.optionals cfg.sillyTools (with pkgs; [ cbonsai cmatrix cowsay ]);
 
     home.sessionVariables = {
       COLORTERM = "truecolor";
