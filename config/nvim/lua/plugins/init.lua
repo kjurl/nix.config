@@ -1,5 +1,6 @@
 ---@type NvPluginSpec[]
 return {
+  -- https://github.com/VonHeikemen/lsp-zero.nvim
   { "nvim-treesitter/nvim-treesitter", opts = require "configs.treesitter" },
   {
     "neovim/nvim-lspconfig",

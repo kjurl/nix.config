@@ -34,10 +34,10 @@
       # desktop.desktopEnvironment = "gnome";
       desktop.displayManager.greetd.enable = true;
       desktop.displayManager.greetd.flavour = "tui"; # TODO
-      virtualisation = {
-        enable = true;
-        podman.enable = true;
-      };
+      # virtualisation = {
+      #   enable = true;
+      #   podman.enable = true;
+      # };
       # audio.enable = true;
       # bluetooth.enable = true;
     };
