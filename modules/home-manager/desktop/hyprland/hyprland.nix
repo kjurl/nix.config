@@ -234,6 +234,9 @@ let
   rules_conf = {
     # Window rules
     windowrule = [
+      # https://github.com/RustLover2910/dotsnix/blob/64c05e65b7bcfd27b8fad1bddca5113ed2523175/modules/home/hyprland/config.nix#L235     
+      "float, ^(Motrix)"
+      "float, ^(pwvucontrol)"
       "noblur,.*"
       # "opacity 0.89 override 0.89 override, .*" # Applies transparency to EVERY WINDOW
       "float, ^(blueberry.py)$"

@@ -42,6 +42,7 @@
               inherit system;
               specialArgs = {
                 inherit self inputs outputs hostname username lib;
+                # inherit (inputs) stable;
               };
               modules = if (lib.hasPrefix "installer" hostname) then
                 [ ./systems/installer ]
@@ -69,10 +70,11 @@
     };
     # Official NixOS package source, using nixos's unstable branch by default
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    stable.url = "github:nixos/nixpkgs/nixos-24.11";
     impermanence.url = "github:nix-community/impermanence";
     # nixlib.url = "github:nix-community/nixpkgs.lib";
-    nixos-generators.url = "github:nix-community/nixos-generators";
-    nixos-generators.inputs.nixpkgs.follows = "nixpkgs";
+    # nixos-generators.url = "github:nix-community/nixos-generators";
+    # nixos-generators.inputs.nixpkgs.follows = "nixpkgs";
     nix-topology.url = "github:oddlama/nix-topology";
     flake-utils-plus.url = "github:gytis-ivaskevicius/flake-utils-plus";
     flake-parts.url = "github:hercules-ci/flake-parts";
@@ -164,9 +166,9 @@
       url = "github:kaylorben/nixcord";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprland-qtutils = {
-      url = "github:hyprwm/hyprland-qtutils";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # hyprland-qtutils = {
+    #   url = "github:hyprwm/hyprland-qtutils";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
   };
 }

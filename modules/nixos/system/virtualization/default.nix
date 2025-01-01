@@ -1,7 +1,7 @@
 { lib, pkgs, config, inputs, ... }:
 let cfg = config.modules.system.virtualisation;
 in {
-  imports = [ ./container.tiny11.nix ];
+  # imports = [ ./container.tiny11.nix ];
   options.modules.system.virtualisation = {
     enable = lib.mkEnableOption "virtualisation";
     podman.enable = lib.mkEnableOption "podman";

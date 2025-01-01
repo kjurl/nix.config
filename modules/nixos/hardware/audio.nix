@@ -5,7 +5,11 @@
     cfg = config.modules.hardware.audio;
     bluetoothCfg = config.modules.hardware.bluetooth;
   in mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.pavucontrol ];
+    environment.systemPackages = with pkgs; [
+      pwvucontrol # Pipewire Volume Control
+      bluez # Bluetooth support
+      bluez-tools # Bluetooth tools
+    ];
 
     hardware.pulseaudio.enable = false;
     security.rtkit.enable = true;
@@ -18,14 +22,14 @@
       jack.enable = true;
       wireplumber = mkIf bluetoothCfg.enable {
         enable = true;
-        extraConfig.bluetoothEnhancements = {
-          "monitor.bluez.properties" = {
-            "bluez5.enable-sbc-xq" = true;
-            "bluez5.enable-msbc" = true;
-            "bluez5.enable-hw-volume" = true;
-            "bluez5.roles" = [ "hsp_hs" "hsp_ag" "hfp_hf" "hfp_ag" ];
-          };
-        };
+        # extraConfig.bluetoothEnhancements = {
+        #   "monitor.bluez.properties" = {
+        #     "bluez5.enable-sbc-xq" = true;
+        #     "bluez5.enable-msbc" = true;
+        #     "bluez5.enable-hw-volume" = true;
+        #     "bluez5.roles" = [ "hsp_hs" "hsp_ag" "hfp_hf" "hfp_ag" ];
+        #   };
+        # };
       };
 
       # extraConfig.pipewire."92-low-latency" = {
@@ -38,10 +42,10 @@
       # };
     };
 
-    #   boot.extraModprobeConfig = ''
-    #     options snd-hda-intel dmic_detect=0
-    #   '';
-    #
+    # boot.extraModprobeConfig = ''
+    #   options snd-hda-intel dmic_detect=0
+    # '';
+
     #   services.udev.extraRules = ''
     #     KERNEL=="rtc0", GROUP="audio"
     #     KERNEL=="hpet", GROUP="audio"

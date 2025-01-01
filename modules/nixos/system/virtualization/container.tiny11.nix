@@ -15,7 +15,7 @@
       "DISK_SIZE" = "64G";
       "HOME" = "/home/kanishkc";
       "RAM_SIZE" = "4G";
-      "VERSION" = "tiny11";
+      "VERSION" = "core11";
     };
     volumes = [
       "/home/kanishkc:/shared:rw"

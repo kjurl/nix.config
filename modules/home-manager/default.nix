@@ -3,7 +3,15 @@
   home = {
     inherit username;
     homeDirectory = "/home/${username}";
-    packages = with pkgs; [ nurl comma mangohud bottles motrix lutris ];
+    packages = with pkgs; [
+      nurl
+      comma
+      mangohud
+      # bottles
+      motrix
+      lutris
+      gnome-disk-utility
+    ];
     sessionPath = [ "$HOME/.local/bin" ];
     sessionVariables = { FLAKE = "/home/${username}/.config/nixos"; };
     # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion

@@ -1,9 +1,9 @@
 { pkgs, inputs, ... }: {
   imports = [ inputs.Hyprlux.homeManagerModules.default ];
-  home.packages = with pkgs; [ hyprdim hyprnome ];
+  # home.packages = with pkgs; [ hyprdim hyprnome ];
   # add hyprfreeze, flameshot];
   programs.hyprlux = {
-    enable = true;
+    enable = false;
 
     systemd = {
       enable = true;

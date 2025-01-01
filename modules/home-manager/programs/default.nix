@@ -14,7 +14,12 @@ in {
   config = let cfg = config.modules.programs;
   in lib.mkMerge [
     {
-      home.packages = with pkgs; [ bitwarden-desktop obsidian ];
+      home.packages = with pkgs; [
+        bitwarden-desktop
+        obsidian
+        # zapzap
+        # inputs.hyprland-qtutils.packages.${pkgs.system}.hyprland-qtutils
+      ];
       xdg.desktopEntries."org.gnome.Settings" = {
         name = "Settings";
         comment = "Gnome Control Center";
@@ -52,12 +57,7 @@ in {
     })
 
     (lib.mkIf cfg.media.enable {
-      home.packages = with pkgs; [
-        playerctl
-        # audio control
-        pulsemixer
-        pwvucontrol
-      ];
+      home.packages = with pkgs; [ playerctl ];
       programs = {
         imv.enable = true;
         mpv = {

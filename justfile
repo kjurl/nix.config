@@ -3,6 +3,7 @@
 set shell := ["bash", "-c"]
 
 OVERRIDE_FLAKE_ROOT := '--override-input root "file+file://"<(printf %s "$PWD")'
+alias b := build
 
 ############################################################################
 #
@@ -24,16 +25,6 @@ build COMMAND='test':
 show:
   nix flake show . {{OVERRIDE_FLAKE_ROOT}}
 
-# Run eval tests
-[group('nix')]
-test:
-  nix eval .#evalTests --show-trace --print-build-logs --verbose
-
-# Generate topology image
-[group('nix')]
-topo:
-  nix build {{OVERRIDE_FLAKE_ROOT}} .#topology.x86_64-linux.config.output 
-
 # Generate Nix packages from URLs
 [group('nix')]
 init:
@@ -54,6 +45,9 @@ upp input:
 [group('nix')]
 history:
   nix profile history --profile /nix/var/nix/profiles/system
+
+tree:
+  nix run github:utdemir/nix-tree
 
 # Open a nix shell with the flake
 [group('nix')]

@@ -1,4 +1,4 @@
-{ lib, config, inputs, ... }:
+{ lib, config, pkgs, inputs, ... }:
 let inherit (lib) isType mapAttrs filterAttrs;
 in {
   system.autoUpgrade = {
@@ -11,6 +11,12 @@ in {
 
   nixpkgs = {
     overlays = [
+      inputs.hyprpanel.overlay
+      (final: prev:
+        with inputs.stable.legacyPackages.${prev.system}; {
+          inherit libsemanage bottles;
+          # python312Packages.patool = python312Packages.patool;
+        })
       # outputs.overlays.additions
       # outputs.overlays.modifications
       # outputs.overlays.unstable-packages
