@@ -12,7 +12,7 @@
     ];
 
     hardware.pulseaudio.enable = false;
-    security.rtkit.enable = true;
+    # security.rtkit.enable = true;
 
     services.pipewire = {
       enable = true;
@@ -42,9 +42,9 @@
       # };
     };
 
-    # boot.extraModprobeConfig = ''
-    #   options snd-hda-intel dmic_detect=0
-    # '';
+    boot.extraModprobeConfig = ''
+      options snd-hda-intel dmic_detect=0
+    '';
 
     #   services.udev.extraRules = ''
     #     KERNEL=="rtc0", GROUP="audio"

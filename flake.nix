@@ -42,7 +42,6 @@
               inherit system;
               specialArgs = {
                 inherit self inputs outputs hostname username lib;
-                # inherit (inputs) stable;
               };
               modules = if (lib.hasPrefix "installer" hostname) then
                 [ ./systems/installer ]
@@ -57,12 +56,6 @@
       systems = [ "aarch64-linux" "x86_64-linux" "aarch64-darwin" ];
     };
 
-  # nixConfig = {
-  #   extra-trusted-public-keys =
-  #     "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=";
-  #   extra-substituters = "https://devenv.cachix.org";
-  # };
-  #
   inputs = {
     root = {
       url = "file+file:///dev/null";
@@ -72,18 +65,8 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     stable.url = "github:nixos/nixpkgs/nixos-24.11";
     impermanence.url = "github:nix-community/impermanence";
-    # nixlib.url = "github:nix-community/nixpkgs.lib";
-    # nixos-generators.url = "github:nix-community/nixos-generators";
-    # nixos-generators.inputs.nixpkgs.follows = "nixpkgs";
     nix-topology.url = "github:oddlama/nix-topology";
-    flake-utils-plus.url = "github:gytis-ivaskevicius/flake-utils-plus";
     flake-parts.url = "github:hercules-ci/flake-parts";
-    nixgaming.url = "github:fufexan/nix-gaming";
-    # nixpacks = {
-    #   url = "github:railwayapp/nixpacks";
-    #   inputs.utils.url = "flake-utils-plus";
-    #   inputs.nixpkgs.url = "nixpkgs";
-    # };
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     sops-nix.url = "github:Mic92/sops-nix";
@@ -111,7 +94,6 @@
     };
     winapps = {
       url = "github:winapps-org/winapps/feat-nix-packaging";
-      inputs.flake-utils.follows = "flake-utils-plus/flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     gitignore.url = "github:hercules-ci/gitignore.nix";
@@ -129,16 +111,6 @@
       inputs.nixpkgs.follows = "hyprland/nixpkgs";
       inputs.hyprland.follows = "hyprland";
     };
-    ironBar = {
-      url = "github:JakeStanger/ironbar";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    gBar = {
-      url = "github:scorpion-26/gBar";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
-    hyprpanel.inputs.nixpkgs.follows = "nixpkgs";
     stylix = {
       url = "github:danth/stylix";
       inputs = {
@@ -150,25 +122,17 @@
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    anyrun = {
-      url = "github:anyrun-org/anyrun";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    walker = {
-      url = "github:abenz1267/walker";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    spicetify-nix = {
-      url = "github:Gerg-L/spicetify-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    vencord-nix = {
-      url = "github:kaylorben/nixcord";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    # hyprland-qtutils = {
-    #   url = "github:hyprwm/hyprland-qtutils";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    # WINDOW MANAGER PROGRAMS
+    hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
+    hyprpanel.inputs.nixpkgs.follows = "nixpkgs";
+    anyrun.url = "github:anyrun-org/anyrun";
+    anyrun.inputs.nixpkgs.follows = "nixpkgs";
+    walker.url = "github:abenz1267/walker";
+    walker.inputs.nixpkgs.follows = "nixpkgs";
+    # PROGRAMS
+    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
+    spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
+    vencord-nix.url = "github:kaylorben/nixcord";
+    vencord-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
 }

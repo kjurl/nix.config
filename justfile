@@ -52,7 +52,7 @@ tree:
 # Open a nix shell with the flake
 [group('nix')]
 repl:
-  nix repl -f flake:nixpkgs
+  nix repl -f flake:nixpkgs {{OVERRIDE_FLAKE_ROOT}}
 
 # remove all generations older than 7 days
 # on darwin, you may need to switch to root user to run this command

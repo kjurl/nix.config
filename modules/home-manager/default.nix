@@ -1,16 +1,50 @@
-{ lib, pkgs, config, username, ... }: {
-  imports = lib.utils.scanPaths ./.;
+{ lib, pkgs, config, inputs, username, ... }: {
+  # imports = [
+  #   lib.evalModules
+  #   {
+  #     modules = let
+  #       isLambda = v: builtins.isFunction v;
+  #       isAttrs = v: builtins.isAttrs v;
+  #       getList = set:
+  #         if isAttrs set then
+  #           builtins.concatLists (map (v: getList v) (builtins.attrValues set))
+  #         else if isLambda set then
+  #           [ set ]
+  #         else
+  #           [ ];
+  #     in getList inputs.haumea.lib.load {
+  #       src = ./modules/nixos;
+  #       inputs = args // { inherit inputs; };
+  #       loader = inputs.haumea.lib.loaders.default lib;
+  #       transformer = [
+  #         (inputs.haumea.lib.transformers.hoistAttrs "options" "options")
+  #         inputs.haumea.lib.transformers.liftDefault
+  #       ];
+  #     };
+  #   }
+  # ];
+  imports = with inputs.haumea.lib;
+    lib.attrsets.collect builtins.isPath (load {
+      src = ./.;
+      loader = loaders.path;
+      transformer = [
+        # (transformers.hoistAttrs "options" "options")
+        # transformers.liftDefault
+      ];
+    });
+
   home = {
     inherit username;
     homeDirectory = "/home/${username}";
     packages = with pkgs; [
-      nurl
-      comma
-      mangohud
       # bottles
-      motrix
-      lutris
+      baobab
+      comma
       gnome-disk-utility
+      lutris
+      mangohud
+      motrix
+      nurl
     ];
     sessionPath = [ "$HOME/.local/bin" ];
     sessionVariables = { FLAKE = "/home/${username}/.config/nixos"; };
@@ -34,24 +68,20 @@
   xdg.configFile."mimeapps.list".force = true;
 
   # github:matostitos
-  nix = {
-    settings = {
-      builders-use-substitutes = true;
-      substituters = [
-        "https://cache.nixos.org"
-        "https://nixpkgs-wayland.cachix.org"
-        "https://nix-community.cachix.org"
-        "https://nix-gaming.cachix.org"
-        "https://hyprland.cachix.org"
-      ];
-      trusted-public-keys = [
-        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-        "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
-        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-        "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
-        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-      ];
-    };
+  nix.settings = {
+    builders-use-substitutes = true;
+    substituters = [
+      "https://cache.nixos.org"
+      "https://nixpkgs-wayland.cachix.org"
+      "https://nix-community.cachix.org"
+      "https://hyprland.cachix.org"
+    ];
+    trusted-public-keys = [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+    ];
   };
   # github:mobsenpai/hana
   systemd.user.startServices = "sd-switch";

@@ -10,8 +10,15 @@ in {
         userEmail = "89933773+kjurl@users.noreply.github.com";
       };
       media.enable = true;
-      firefox.enable = true;
-      firefox.flavour = "gnome-theme";
+      firefox = {
+        enable = true;
+        policies.enable = true;
+        search.enable = true;
+        themes = {
+          enable = true;
+          name = "gnome-theme";
+        };
+      };
       neovim.enable = true;
       kitty.enable = true;
       vscodium.enable = true;
