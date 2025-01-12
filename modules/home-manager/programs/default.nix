@@ -1,14 +1,19 @@
 { lib, pkgs, config, inputs, ... }:
 let inherit (lib) mkEnableOption;
 in {
-  imports = lib.utils.scanPaths ./.;
+  # imports = with inputs.haumea.lib;
+  #   lib.attrsets.collect builtins.isPath (load {
+  #     src = ./.;
+  #     loader = loaders.path;
+  #     transformer = [
+  #       # (transformers.hoistAttrs "options" "options")
+  #       # transformers.liftDefault
+  #     ];
+  #   });
+  imports = lib.utils.scanPaths ./. ++ [ ];
+
   options.modules.programs = {
-    git = {
-      enable = mkEnableOption "git";
-      userEmail = lib.mkOption { type = lib.types.str; };
-      userName = lib.mkOption { type = lib.types.str; };
-    };
-    media.enable = mkEnableOption "media tools";
+    media = { enable = mkEnableOption "media tools"; };
   };
 
   config = let cfg = config.modules.programs;
@@ -30,31 +35,13 @@ in {
         terminal = false;
       };
 
-    }
-
-    (lib.mkIf cfg.git.enable {
-      programs.git = {
-        enable = true;
-        lfs.enable = true;
-        delta.enable = true;
-        inherit (cfg.git) userName userEmail;
-        aliases = {
-          ci = "commit";
-          co = "checkout";
-          s = "status";
-        };
-        extraConfig = {
-          init.defaultBranch = "main";
-          push = { autoSetupRemote = true; };
-          credentials.helper = "store";
-          credential.helper = "${
-              pkgs.git.override { withLibsecret = true; }
-            }/bin/git-credential-libsecret";
-          color.ui = true;
-        };
-        ignores = [ "*~" "*.swp" "*result*" "node_modules" ];
+      programs = {
+        nix-index.enable = true;
+        nix-index.enableBashIntegration = true;
+        pandoc.enable = false;
       };
-    })
+
+    }
 
     (lib.mkIf cfg.media.enable {
       home.packages = with pkgs; [ playerctl ];
@@ -62,16 +49,15 @@ in {
         imv.enable = true;
         mpv = {
           enable = true;
-          defaultProfiles = [ "gpu-hq" ];
-          scripts = [ pkgs.mpvScripts.mpris ];
+          # defaultprofiles = [ "gpu-hq" ];
+          # scripts = [ pkgs.mpvscripts.mpris ];
         };
       };
-      xdg.mimeApps.defaultApplications = {
-        "audio/*" = "mpv.desktop";
-        "image/*" = "imv.desktop";
-        "video/*" = "mpv.desktop";
-      };
+      # xdg.mimeapps.defaultapplications = {
+      #   "audio/*" = "mpv.desktop";
+      #   "image/*" = "imv.desktop";
+      #   "video/*" = "mpv.desktop";
+      # };
     })
-
   ];
 }

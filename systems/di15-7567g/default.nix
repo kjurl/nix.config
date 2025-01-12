@@ -2,7 +2,9 @@
   imports = [ ./hardware-configuration.nix ];
 
   modules = {
+
     core = { homeManager.enable = true; };
+
     hardware = {
       audio.enable = true;
       bluetooth.enable = true;
@@ -20,24 +22,28 @@
         };
       };
     };
+
     services = {
       gnome-keyring.enable = true;
+      kanata-kbd.enable = true;
       mac-randomize.enable = false;
       polkit-gnome.enable = true;
       printing.enable = false;
+      samba.enable = false;
       ssh.enable = false;
       usb.enable = false;
       vpn.enable = false;
     };
+
     system = {
       desktop.enable = true;
       # desktop.desktopEnvironment = "gnome";
       desktop.displayManager.greetd.enable = true;
       desktop.displayManager.greetd.flavour = "tui"; # TODO
-      # virtualisation = {
-      #   enable = true;
-      #   podman.enable = true;
-      # };
+      virtualisation = {
+        enable = true;
+        podman.enable = true;
+      };
       # audio.enable = true;
       # bluetooth.enable = true;
     };

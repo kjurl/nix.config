@@ -1,3 +1,1 @@
-{ lib, ... }:
-let inherit (lib) utils mkEnableOption mkOption types;
-in { imports = utils.scanPaths ./.; }
+{ lib, ... }: { imports = lib.utils.scanPaths ./.; }

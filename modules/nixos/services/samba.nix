@@ -1,4 +1,6 @@
-{ ... }: {
+{ lib, config, username, ... }:
+let cfg = config.modules.services.samba;
+in lib.mkIf cfg.enable {
   services.samba = {
     enable = true;
     # securityType = "user";
@@ -24,7 +26,7 @@
         "guest ok" = "yes";
         "create mask" = "0644";
         "directory mask" = "0755";
-        "force user" = "kanishkc";
+        "force user" = username;
         # "force group" = "groupname";
       };
       # "private" = {

@@ -12,13 +12,32 @@
 
       # https://marketplace.visualstudio.com/VSCode
       extensions = with pkgs.vscode-extensions; [
+        asvetliakov.vscode-neovim
         catppuccin.catppuccin-vsc
         catppuccin.catppuccin-vsc-icons
-
+        charliermarsh.ruff
         christian-kohler.path-intellisense
-
-        yzhang.markdown-all-in-one
+        github.vscode-github-actions
+        github.vscode-pull-request-github
+        humao.rest-client
         jnoortheen.nix-ide
+        marp-team.marp-vscode
+        mkhl.direnv
+        ms-python.debugpy
+        ms-python.python
+        ms-python.vscode-pylance
+        ms-toolsai.jupyter
+        ms-toolsai.jupyter
+        ms-toolsai.jupyter-keymap
+        ms-toolsai.jupyter-renderers
+        ms-toolsai.vscode-jupyter-cell-tags
+        ms-toolsai.vscode-jupyter-slideshow
+        rust-lang.rust-analyzer
+        tamasfe.even-better-toml
+        timonwong.shellcheck
+        usernamehw.errorlens
+        visualstudioexptteam.vscodeintellicode
+        yzhang.markdown-all-in-one
       ];
       userSettings = {
         "editor.codeActionsOnSave" = {

@@ -1,52 +1,23 @@
-{ lib, config, pkgs, inputs, ... }:
-let inherit (lib) isType mapAttrs filterAttrs;
+{ lib, config, inputs, outputs, ... }:
+let flakeInputs = lib.attrsets.filterAttrs (_: lib.isType "flake") inputs;
 in {
-  system.autoUpgrade = {
-    enable = true;
-    operation = "switch";
-    flake = inputs.self.outPath;
-    flags = [ "--update-input" "nixpkgs" "--commit-lock-file" ];
-    dates = "weekly";
-  };
-
   nixpkgs = {
-    overlays = [
-      inputs.hyprpanel.overlay
-      (final: prev:
-        with inputs.stable.legacyPackages.${prev.system}; {
-          inherit libsemanage bottles;
-          # python312Packages.patool = python312Packages.patool;
-        })
-      # outputs.overlays.additions
-      # outputs.overlays.modifications
-      # outputs.overlays.unstable-packages
-
-      # You can also add overlays exported from other flakes:
-      # neovim-nightly-overlay.overlays.default
-
-      # Or define it inline, for example:
-      # (final: prev: {
-      #   hi = final.hello.overrideAttrs (oldAttrs: {
-      #     patches = [ ./change-hello-to-hi.patch ];
-      #   });
-      # })
-    ];
+    overlays = [ outputs.overlays.default ];
     config.allowUnfree = true;
   };
-
-  nix = let flakeInputs = filterAttrs (_: isType "flake") inputs;
-  in {
+  nix = {
     channel.enable = false;
     # Populates the nix registry with all our flake inputs `nix registry list`
-    registry = mapAttrs (_: flake: { inherit flake; }) flakeInputs;
+    registry = lib.attrsets.mapAttrs (_: flake: { inherit flake; }) flakeInputs;
     # Add flake inputs to nix path. Enables loading flakes with <flake_name>
     # like how <nixpkgs> can be referenced.
-    # nixPath = (mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs)
-    nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+    nixPath =
+      (lib.attrsets.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs)
+      ++ [ "nixpkgs=${inputs.nixpkgs}" ];
     settings = {
       # https://discourse.nixos.org/t/declaratively-or-otherwise-add-trusted-users-in-21-11/25134/2
       trusted-users = [ "root" "@wheel" ];
-      experimental-features = [ "nix-command" "flakes" "pipe-operators" ];
+      experimental-features = [ "nix-command" "flakes" ];
       # Do not load the default global registry
       # https://channels.nixos.org/flake-registry.json
       flake-registry = "";

@@ -1,6 +1,7 @@
 { lib, pkgs, config, ... }:
 let
   kys = lib.utils.findKys ./. ++ [ "hyprlock" ];
+
   inherit (config.modules.colorScheme) colors;
   inherit (config.modules.desktop) wallpaper;
 in {

@@ -1,15 +1,21 @@
-let ok = { enable = true; };
-in {
+{
+  main = {
+    password = "nixos";
+    groups = [
+      "audio"
+      "docker"
+      "libvirtd"
+      "networkmanager"
+      "nixosvmtest"
+      "video"
+      "wheel"
+    ];
+  };
   modules = {
     desktop = { windowManager = "Hyprland"; };
 
     programs = {
-      git-vcs = {
-        enable = true;
-        userName = "kjurl";
-        userEmail = "89933773+kjurl@users.noreply.github.com";
-      };
-      media.enable = true;
+      discord.enable = true;
       firefox = {
         enable = true;
         policies.enable = true;
@@ -19,14 +25,18 @@ in {
           name = "gnome-theme";
         };
       };
-      neovim.enable = true;
+      git-vcs = {
+        enable = true;
+        userName = "kjurl";
+        userEmail = "89933773+kjurl@users.noreply.github.com";
+      };
       kitty.enable = true;
+      media.enable = true;
+      neovim.enable = true;
+      office.enable = true;
+      spotify.enable = true;
       vscodium.enable = true;
       waybar.enable = true;
-      # waybar.flavour = "link";
-      office.enable = true;
-      spotify = ok;
-      discord = ok;
     };
 
     services = {
@@ -39,6 +49,7 @@ in {
       enable = true;
       sillyTools = true;
       fastfetch.enable = true;
+      starship.enable = true;
     };
   };
 }

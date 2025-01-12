@@ -23,12 +23,14 @@
       if homeManager.enable then homeDesktopCfg.desktopEnvironment else null;
     hyprlandPackage = inputs.hyprland.packages."${pkgs.system}".hyprland;
   in mkIf cfg.enable (mkMerge [
+
     (mkIf (desktopEnvironment == "gnome") {
       services.xserver = {
         enable = true;
         displayManager.gdm.enable = true;
         desktopManager.gnome.enable = true;
       };
+
       environment = {
         systemPackages = with pkgs; [
           morewaita-icon-theme
@@ -91,7 +93,7 @@
               "tui" =
                 "${pkgs.greetd.tuigreet}/bin/tuigreet --time --time-format '%I:%M %p | %a . %h | %F' --remember --cmd Hyprland";
             }."${cfg.displayManager.greetd.flavour}";
-            user = "kanishkc";
+            user = username;
           };
         };
       };
@@ -105,12 +107,14 @@
       xdg.portal.enable = mkForce false;
       security.pam.services.hyprlock = mkIf hyprlock.enable { };
     })
+
     (mkIf (windowManager == "Hyprland") {
       programs.hyprland = {
         enable = true;
         package = hyprlandPackage;
       };
     })
+
     {
       # Enables wayland for all apps that support it
       environment.sessionVariables.NIXOS_OZONE_WL = "1";

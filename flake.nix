@@ -35,7 +35,7 @@
       };
       flake = {
         libraries = lib;
-        overlays = import ./nix-files/overlays.nix { inherit inputs; };
+        overlays.default = import ./nix-files/overlays.nix { inherit inputs; };
         nixosModules = import ./modules/nixos; # upstream into nixpkgs
         homeManagerModules = import ./modules/home-manager; # upstream into hm
         nixosConfigurations = let
@@ -125,8 +125,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # WINDOW MANAGER PROGRAMS
-    hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
-    hyprpanel.inputs.nixpkgs.follows = "nixpkgs";
     anyrun.url = "github:anyrun-org/anyrun";
     anyrun.inputs.nixpkgs.follows = "nixpkgs";
     walker.url = "github:abenz1267/walker";

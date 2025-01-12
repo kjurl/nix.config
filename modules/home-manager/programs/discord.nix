@@ -6,7 +6,7 @@ in {
   config = let cfg = lib.utils.getConfig config kys;
   in lib.mkIf cfg.enable {
     programs.nixcord = {
-      enable = true; # enable Nixcord. Also installs discord package
+      enable = false; # enable Nixcord. Also installs discord package
       # quickCss = "some CSS"; # quickCSS file
       config = {
         useQuickCss = true; # use out quickCSS

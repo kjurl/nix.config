@@ -35,6 +35,7 @@
         fixjson
         prettierd
         eslint_d
+        deno
         mypy
         black
         isort
