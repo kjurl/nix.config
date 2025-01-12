@@ -56,6 +56,7 @@ in {
   config = lib.mkIf cfg.enable {
     stylix = {
       enable = true;
+      targets = { waybar.enable = false; };
       # polarity = "dark";
       image = config.modules.desktop.wallpaper.default;
       # image = config.lib.stylix.pixel config.modules.desktop.colorscheme;

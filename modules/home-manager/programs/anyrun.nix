@@ -14,7 +14,6 @@ in {
   in lib.mkIf cfg.enable {
 
     desktop.hyprland.settings = {
-      # layerrule = [ "noanim, anyrun" ];
       bindr = let
         pkill = lib.getExe' pkgs.procps "pkill";
         anyrun = lib.getExe pkgs.anyrun;

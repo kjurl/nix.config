@@ -1,15 +1,16 @@
 {
+  description = "kjurl's nix config";
   outputs = { self, nixpkgs, flake-parts, ... }@inputs:
     let
       inherit (self) outputs;
       lP = nixpkgs.legacyPackages;
       lib = nixpkgs.lib.extend (final: _prev:
-        (import ./libraries.nix final) // inputs.home-manager.lib);
+        (import ./nix-files/libraries.nix final) // inputs.home-manager.lib);
     in flake-parts.lib.mkFlake { inherit inputs; } {
-      imports = with inputs; [ devenv.flakeModule nix-topology.flakeModule ];
+      imports = with inputs; [ devenv.flakeModule ];
       perSystem = { config, self', inputs', pkgs, system, ... }: {
-        formatter = lP.${system}.nixfmt-classic;
         packages = import ./packages lP.${system};
+        formatter = lP.${system}.nixfmt-classic;
         checks.lint-check = let pkgs = import nixpkgs { inherit system; };
         in pkgs.runCommandLocal "lint-check" {
           nativeBuildInputs = with pkgs; [ statix deadnix ];
@@ -34,7 +35,8 @@
       };
       flake = {
         libraries = lib;
-        nixosModules.modules = import ./modules/nixos; # upstream into nixpkgs
+        overlays = import ./nix-files/overlays.nix { inherit inputs; };
+        nixosModules = import ./modules/nixos; # upstream into nixpkgs
         homeManagerModules = import ./modules/home-manager; # upstream into hm
         nixosConfigurations = let
           mkHost = hostname: username: system: {

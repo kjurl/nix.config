@@ -13,12 +13,11 @@ lib.mkIf osConfig.modules.system.desktop.enable {
       fira-mono
       fira-code
     ];
+
   stylix.fonts = {
     monospace = {
-      # name = "JetBrainsMono Nerd Font";
-      # package = pkgs.nerd-fonts.override { fonts = [ "JetBrainsMono" ]; };
-      name = "Ubuntu Sans Mono";
-      package = pkgs.nerd-fonts.ubuntu-mono;
+      name = "JetBrainsMono Nerd Font";
+      package = pkgs.nerd-fonts.jetbrains-mono;
     };
     sansSerif = {
       name = "Ubuntu Sans";

@@ -4,7 +4,7 @@ in {
     desktop = { windowManager = "Hyprland"; };
 
     programs = {
-      git = {
+      git-vcs = {
         enable = true;
         userName = "kjurl";
         userEmail = "89933773+kjurl@users.noreply.github.com";
@@ -22,8 +22,8 @@ in {
       neovim.enable = true;
       kitty.enable = true;
       vscodium.enable = true;
-      # waybar.enable = true;
-      waybar.flavour = "link";
+      waybar.enable = true;
+      # waybar.flavour = "link";
       office.enable = true;
       spotify = ok;
       discord = ok;

@@ -37,9 +37,8 @@ in {
     findKys = path:
       let
         prefix = "modules";
-        pathString =
-          # HACK: convert absolute to relative
-          "." + builtins.toString path; # returns an absolute path string
+        # HACK: to relative path (str)
+        pathString = "." + builtins.toString path;
         pathList = lib.path.subpath.components pathString;
         stopIndex = lib.lists.findFirstIndex (x: x == "modules") null pathList;
         # drop till modudles/{nixos,home-manager}
