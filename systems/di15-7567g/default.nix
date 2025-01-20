@@ -25,7 +25,7 @@
 
     services = {
       gnome-keyring.enable = true;
-      kanata-kbd.enable = true;
+      kanata-keybd.enable = false;
       mac-randomize.enable = false;
       polkit-gnome.enable = true;
       printing.enable = false;
@@ -36,16 +36,15 @@
     };
 
     system = {
-      desktop.enable = true;
-      # desktop.desktopEnvironment = "gnome";
-      desktop.displayManager.greetd.enable = true;
-      desktop.displayManager.greetd.flavour = "tui"; # TODO
+      desktop = {
+        enable = true;
+        displayManager.greetd.enable = true;
+        displayManager.greetd.flavour = "tui"; # TODO
+      };
       virtualisation = {
         enable = true;
         podman.enable = true;
       };
-      # audio.enable = true;
-      # bluetooth.enable = true;
     };
   };
 }

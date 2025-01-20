@@ -5,11 +5,13 @@
     cfg = config.modules.hardware.audio;
     bluetoothCfg = config.modules.hardware.bluetooth;
   in mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [
-      pwvucontrol # Pipewire Volume Control
-      bluez # Bluetooth support
-      bluez-tools # Bluetooth tools
-    ];
+    environment.systemPackages = with pkgs;
+      [
+        pwvucontrol # Pipewire Volume Control
+      ] ++ lib.lists.optionals bluetoothCfg.enable [
+        bluez # Bluetooth support
+        bluez-tools # Bluetooth tools
+      ];
 
     services.pulseaudio.enable = false;
     # security.rtkit.enable = true;
@@ -42,9 +44,9 @@
       # };
     };
 
-    boot.extraModprobeConfig = ''
-      options snd-hda-intel dmic_detect=0
-    '';
+    # boot.extraModprobeConfig = ''
+    #   options snd-hda-intel dmic_detect=0
+    # '';
 
     #   services.udev.extraRules = ''
     #     KERNEL=="rtc0", GROUP="audio"

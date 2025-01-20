@@ -13,18 +13,10 @@
   };
   modules = {
     desktop = { windowManager = "Hyprland"; };
-
     programs = {
       discord.enable = true;
-      firefox = {
-        enable = true;
-        policies.enable = true;
-        search.enable = true;
-        themes = {
-          enable = true;
-          name = "gnome-theme";
-        };
-      };
+      firefox.enable = true;
+      firefox.theme = "modblur-theme";
       git-vcs = {
         enable = true;
         userName = "kjurl";
@@ -42,14 +34,12 @@
     services = {
       hypridle.enable = true;
       hyprpaper.enable = true;
-      # kdeconnect.enable = true;
-      # swaync.enable = true;
+      swaync.enable = true;
     };
     shell = {
       enable = true;
       sillyTools = true;
       fastfetch.enable = true;
-      starship.enable = true;
     };
   };
 }

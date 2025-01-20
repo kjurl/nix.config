@@ -6,7 +6,7 @@ return {
       css = { "prettierd" },
       html = { "prettierd" },
       json = { "prettierd" },
-      jsonc = { "fixjson", "deno_fmt" },
+      jsonc = { "deno_fmt" },
       typescript = { "prettierd" },
       python = { "isort", "black" },
       nix = { "nixfmt" },

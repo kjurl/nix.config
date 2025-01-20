@@ -20,23 +20,6 @@
 
   services.fail2ban.enable = true;
 
-  firejail = {
-    enable = true;
-    wrappedBinaries = let
-      getWrappedBin = bin: {
-        ${bin} = {
-          executable = "${lib.getBin pkgs.${bin}}/bin/${bin}";
-          profile = "${pkgs.firejail}/etc/firefail/${bin}.profile";
-        };
-      };
-    in lib.lists.foldl' (acc: key: acc // getWrappedBin key) { } [
-      "mpv"
-      "imv"
-      "zathura"
-      "vscodium"
-    ];
-  };
-
   programs = {
     browserpass.enable = true;
 

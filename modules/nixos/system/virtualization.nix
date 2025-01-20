@@ -16,7 +16,7 @@ in {
           dockerCompat = true;
           defaultNetwork.settings.dns_enabled = true;
         };
-        libvirtd.enable = false;
+        libvirtd.enable = true;
         spiceUSBRedirection.enable = true;
       };
 

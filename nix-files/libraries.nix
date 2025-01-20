@@ -1,6 +1,71 @@
 lib:
 let inherit (lib) attrNames filterAttrs;
 in {
+
+  # "Nix Packages" = engine {
+  #   aliases = [ "@np" ];
+  #   params = [
+  #     "https://search.nixos.org/packages"
+  #     "type:packages"
+  #     "channel:unstable"
+  #     "query:{searchTerms}"
+  #   ];
+  # };
+  # "Nix Packages Versions" = engine {
+  #   aliases = [ "@npv" ];
+  #   params = [
+  #     "https://lazamar.co.uk/nix-versions/"
+  #     "channel:nixpkgs-unstable"
+  #     "package:{searchTerms}"
+  #   ];
+  # };
+  # "Home-manager Options" = engine {
+  #   aliases = [ "@hm" ];
+  #   params = [
+  #     "https://home-manager-options.extranix.com"
+  #     "release:master"
+  #     "query:{searchTerms}"
+  #   ];
+  # };
+  # "Perplexity" = engine {
+  #   aliases = [ "@px" ];
+  #   params = [ "https://www.perplexity.ai" "q:{searchTerms}" ];
+  # };
+  firefox = {
+    searchEngine = { aliases ? [ ], params ? [ ], icon ? "" }: {
+      definedAliases = aliases;
+      urls = let
+        splitToSublistsAcc = acc: key:
+          if lib.strings.hasInfix "://" key then
+            acc ++ [ [ key ] ]
+          else
+            lib.pipe key [
+              (y: (lib.lists.last acc) ++ [ y ])
+              (y: (lib.lists.init acc) ++ [ y ])
+            ];
+
+        stringToAttrset = str:
+          let parts = lib.strings.splitString ":" str;
+          in if builtins.length parts == 2 then
+            let psElem = builtins.elemAt parts;
+            in {
+              name = psElem 0;
+              value = psElem 1;
+            }
+          else
+            null;
+
+        subLists = lib.lists.foldl splitToSublistsAcc [ ] params;
+        final = map (sublist: {
+          template = lib.lists.take 1 sublist;
+          params = map stringToAttrset (lib.lists.drop 1 sublist);
+        }) subLists;
+
+      in lib.attrsets.filterAttrs (e: e != null) final;
+
+      inherit icon;
+    };
+  };
   utils = {
     # We use an unorthodox pkgs reference here because pkgs will not be in the
     # first layer of arguments if it is not explicitly added to the module

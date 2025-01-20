@@ -1,0 +1,8 @@
+{
+  "custom/smallspacer": {
+    "format": " "
+  },
+  "custom/spacer": {
+    "format": "|"
+  }
+}

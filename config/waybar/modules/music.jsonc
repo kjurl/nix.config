@@ -1,0 +1,20 @@
+{
+  "mpris": {
+    "format": "{player_icon} {status_icon} {title}",
+    "format-paused": "<span color='grey'>{status_icon}</span>",
+    "max-length": 30,
+    "player-icons": {
+      "default": "󰼛",
+      "spotify": "󰓇",
+      "mpv": ""
+    },
+    "status-icons": {
+      "playing": "",
+      "paused": "",
+      "stopped": ""
+    },
+    "ignored-players": [
+      "firefox"
+    ]
+  }
+}

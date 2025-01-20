@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }: {
+{ lib, pkgs, inputs, config, ... }: {
   nix.settings = {
     substituters = [ "https://winapps.cachix.org/" ];
     trusted-public-keys =
@@ -9,5 +9,11 @@
     winapps
     winapps-launcher # optional
   ];
+
+  xdg.configFile."winapps".source = let
+    mkMutableSymlink = path:
+      config.lib.file.mkOutOfStoreSymlink (builtins.readFile inputs.root.outPath
+        + lib.strings.removePrefix (toString inputs.self) (toString path));
+  in mkMutableSymlink ../../../config/winapps;
 
 }

@@ -1,5 +1,5 @@
 { lib, config, ... }:
-let cfg = config.modules.services.kanata-kbd;
+let cfg = config.modules.services.kanata-keybd;
 in lib.mkIf cfg.enable {
   services.kanata = {
     enable = true;
@@ -12,7 +12,7 @@ in lib.mkIf cfg.enable {
            caps a s d f j k l ;
           )
           (defvar
-           tap-time 150
+           tap-time 200
            hold-time 250
           )
           (defalias

@@ -1,0 +1,64 @@
+{
+  "backlight": {
+    "device": "intel_backlight",
+    "format": "{icon}",
+    "format-icons": [
+      "󰃞",
+      "󰃝",
+      "󰃟",
+      "󰃠"
+    ],
+    "min-length": 2,
+    "rotate": 0,
+    "scroll-step": 1
+  },
+  "backlight/slider": {
+    "device": "intel_backlight",
+    "max": 100,
+    "min": 5,
+    "rotate": 0,
+    "scroll-step": 1
+  },
+  "battery": {
+    "states": {
+      "good": 95,
+      "warning": 30,
+      "critical": 20
+    },
+    "format": "{icon}{time}{capacity}",
+    "format-charging": "<span color='#a6d189'>󱐋</span>",
+    "format-icons": [
+      "󰂎",
+      "󰁺",
+      "󰁻",
+      "󰁼",
+      "󰁽",
+      "󰁾",
+      "󰁿",
+      "󰂀",
+      "󰂁",
+      "󰂂",
+      "󰁹"
+    ],
+    "format-plugged": "󰂄",
+    "format-time": "{H}h:{M}mins",
+    "on-click-right": "pkill waybar & hyprctl dispatch exec waybar",
+    "tooltip-format": "Battery: {capacity}%\nTime: {time}\nPower: {power}W"
+  },
+  "cpu": {
+    "interval": 2,
+    "format": "{icon}",
+    "rotate": 270,
+    "format-icons": [
+      "󰝦",
+      "󰪞",
+      "󰪟",
+      "󰪠",
+      "󰪡",
+      "󰪢",
+      "󰪣",
+      "󰪤",
+      "󰪥"
+    ]
+  }
+}
