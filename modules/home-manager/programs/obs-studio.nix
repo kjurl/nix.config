@@ -2,10 +2,13 @@
   programs.obs-studio = {
     enable = true;
     plugins = with pkgs.obs-studio-plugins; [
-      wlrobs
-      obs-backgroundremoval
-      obs-pipewire-audio-capture
       droidcam-obs
+      looking-glass-obs
+      obs-backgroundremoval
+      obs-move-transition
+      obs-multi-rtmp
+      obs-pipewire-audio-capture
+      wlrobs
     ];
   };
 }

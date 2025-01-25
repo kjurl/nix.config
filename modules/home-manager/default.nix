@@ -10,13 +10,12 @@
         baobab
         comma
         gnome-disk-utility
-        lutris
-        mangohud
         motrix
         nurl
 
         (writeScriptBin "config" # bash
           "cd ${builtins.readFile inputs.root.outPath} && nvim")
+
       ];
       sessionPath = [ "$HOME/.local/bin" ];
       sessionVariables = { FLAKE = "/home/${username}/.config/nixos"; };

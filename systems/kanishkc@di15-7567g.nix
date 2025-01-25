@@ -12,7 +12,7 @@
     ];
   };
   modules = {
-    desktop = { windowManager = "Hyprland"; };
+    desktop = { desktopEnvironment = "gnome"; };
     programs = {
       discord.enable = true;
       firefox.enable = true;
@@ -29,6 +29,7 @@
       spotify.enable = true;
       vscodium.enable = true;
       waybar.enable = true;
+      rofi.enable = true;
     };
 
     services = {

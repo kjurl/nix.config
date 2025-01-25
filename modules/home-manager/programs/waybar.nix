@@ -20,6 +20,8 @@ in {
       ];
     };
 
+    home.packages = with pkgs; [ bluez-tools brightnessctl python bluetui ];
+
     services = {
       blueman-applet.enable = true;
       network-manager-applet.enable = true;
@@ -45,13 +47,13 @@ in {
       #     ''));
       # in fromJSONC (builtins.readFile ./waybar.settings.jsonc);
       # style = builtins.readFile ./waybar.style.css;
+
     };
     xdg.configFile."waybar".source = let
       mkMutableSymlink = path:
         config.lib.file.mkOutOfStoreSymlink
         (builtins.readFile inputs.root.outPath
           + lib.strings.removePrefix (toString inputs.self) (toString path));
-      ok = /home/kanishkc/.config/nixos/config/waybar;
     in mkMutableSymlink ../../../config/waybar;
     # in config.lib.file.mkOutOfStoreSymlink ok;
   };

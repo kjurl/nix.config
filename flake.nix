@@ -1,21 +1,27 @@
 {
   description = "kjurl's nix config";
+
   outputs = { self, nixpkgs, flake-parts, ... }@inputs:
     let
       inherit (self) outputs;
       lP = nixpkgs.legacyPackages;
       lib = nixpkgs.lib.extend (final: _prev:
         (import ./nix-files/libraries.nix final) // inputs.home-manager.lib);
+
     in flake-parts.lib.mkFlake { inherit inputs; } {
       imports = with inputs; [ devenv.flakeModule ];
+      systems = [ "aarch64-linux" "x86_64-linux" "aarch64-darwin" ];
+
       perSystem = { config, self', inputs', pkgs, system, ... }: {
         packages = import ./packages lP.${system};
         formatter = lP.${system}.nixfmt-classic;
+
         checks.lint-check = let pkgs = import nixpkgs { inherit system; };
         in pkgs.runCommandLocal "lint-check" {
           nativeBuildInputs = with pkgs; [ statix deadnix ];
           src = ./.;
         } "statix check; deadnix";
+
         devenv.shells.default = {
           devenv.root =
             let devenvRootFileContent = builtins.readFile inputs.root.outPath;
@@ -33,11 +39,14 @@
           # See full reference at https://devenv.sh/reference/options/
         };
       };
+
       flake = {
         libraries = lib;
         overlays.default = import ./nix-files/overlays.nix { inherit inputs; };
+
         nixosModules = import ./modules/nixos; # upstream into nixpkgs
         homeManagerModules = import ./modules/home-manager; # upstream into hm
+
         nixosConfigurations = let
           mkHost = hostname: username: system: {
             ${hostname} = lib.nixosSystem {
@@ -55,7 +64,7 @@
           };
         in mkHost "di15-7567g" "kanishkc" "x86_64-linux";
       };
-      systems = [ "aarch64-linux" "x86_64-linux" "aarch64-darwin" ];
+
     };
 
   inputs = {
@@ -129,5 +138,9 @@
     spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
     vencord-nix.url = "github:kaylorben/nixcord";
     vencord-nix.inputs.nixpkgs.follows = "nixpkgs";
+    mechabar = {
+      url = "github:sejjy/mechabar";
+      flake = false;
+    };
   };
 }

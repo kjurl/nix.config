@@ -35,7 +35,7 @@
         systemPackages = with pkgs; [
           morewaita-icon-theme
           qogir-icon-theme
-          gnome-extension-manager
+          # gnome-extension-manager
           wl-clipboard
         ];
 

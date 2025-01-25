@@ -1225,6 +1225,22 @@
         "type": "github"
       }
     },
+    "mechabar": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1737543170,
+        "narHash": "sha256-Hh6nlkfOrDNbtzG7W3t9EAtVoFLqdImFNRn8PHug7PQ=",
+        "owner": "sejjy",
+        "repo": "mechabar",
+        "rev": "84d51fd08731f1e198caf3c27d485231f72058d8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sejjy",
+        "repo": "mechabar",
+        "type": "github"
+      }
+    },
     "nix": {
       "inputs": {
         "flake-compat": [
@@ -1533,6 +1549,7 @@
         "hyprland-plugins": "hyprland-plugins",
         "impermanence": "impermanence",
         "lanzaboote": "lanzaboote",
+        "mechabar": "mechabar",
         "nix-topology": "nix-topology",
         "nix2container": "nix2container",
         "nixpkgs": "nixpkgs_6",

@@ -18,5 +18,4 @@ in {
       "settings"
     ])
   ];
-  modules.programs.anyrun.enable = lib.mkDefault true;
 }

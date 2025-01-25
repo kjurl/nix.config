@@ -38,8 +38,8 @@
     system = {
       desktop = {
         enable = true;
-        displayManager.greetd.enable = true;
-        displayManager.greetd.flavour = "tui"; # TODO
+        # displayManager.greetd.enable = true;
+        # displayManager.greetd.flavour = "tui"; # TODO
       };
       virtualisation = {
         enable = true;

@@ -55,7 +55,7 @@ in {
         fg-col = "#cdd6f4";
         fg-col2 = "#f38ba8";
         grey = "#6c7086";
-      in { };
+      in defaultConfig;
     };
   };
 }
