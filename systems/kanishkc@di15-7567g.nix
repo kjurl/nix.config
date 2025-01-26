@@ -28,14 +28,14 @@
       office.enable = true;
       spotify.enable = true;
       vscodium.enable = true;
-      waybar.enable = true;
-      rofi.enable = true;
+      # waybar.enable = true;
+      # rofi.enable = true;
     };
 
     services = {
-      hypridle.enable = true;
-      hyprpaper.enable = true;
-      swaync.enable = true;
+      # hypridle.enable = true;
+      # hyprpaper.enable = true;
+      # swaync.enable = true;
     };
     shell = {
       enable = true;

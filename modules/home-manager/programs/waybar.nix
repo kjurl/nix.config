@@ -20,7 +20,7 @@ in {
       ];
     };
 
-    home.packages = with pkgs; [ bluez-tools brightnessctl python bluetui ];
+    home.packages = with pkgs; [ bluez-tools brightnessctl bluetui ];
 
     services = {
       blueman-applet.enable = true;

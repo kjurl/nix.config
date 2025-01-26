@@ -7,8 +7,8 @@ with lib.hm.gvariant;
   dconf.settings = {
     "org/gnome/shell" = {
       disable-user-extensions = false;
-      disabled-extensions = [ "dash-to-panel@jderose9.github.com" "CoverflowAltTab@palatis.blogspot.com" "quick-settings-tweaks@qwreey" "caffeine@patapon.info" ];
-      enabled-extensions = [ "user-theme@gnome-shell-extensions.gcampax.github.com" "trayIconsReloaded@selfmade.pl" "Vitals@CoreCoding.com" "dash-to-panel@jderose9.github.com" "sound-output-device-chooser@kgshank.net" "space-bar@luchrioh" ];
+      disabled-extensions = [ "dash-to-panel@jderose9.github.com" "CoverflowAltTab@palatis.blogspot.com" "quick-settings-tweaks@qwreey" "caffeine@patapon.info" "appindicatorsupport@rgcjonas.gmail.com" "forge@jmmaranan.com" ];
+      enabled-extensions = [ "user-theme@gnome-shell-extensions.gcampax.github.com" "trayIconsReloaded@selfmade.pl" "dash-to-panel@jderose9.github.com" "sound-output-device-chooser@kgshank.net" "appmenu-is-back@fthx" "arcmenu@arcmenu.com" "blur-my-shell@aunetx" "clipboard-indicator@tudmotu.com" "color-picker@tuberry" "dash-to-dock@micxgx.gmail.com" "logowidget@github.com.howbea" "gnome-fuzzy-app-search@gnome-shell-extensions.Czarlie.gitlab.com" "just-perfection-desktop@just-perfection" "logomenu@aryan_k" "space-bar@luchrioh" "tweaks-system-menu@extensions.gnome-shell.fifi.org" "Vitals@CoreCoding.com" ];
       favorite-apps = [ "firefox.desktop" "org.gnome.Nautilus.desktop" "org.gnome.Calendar.desktop" "obsidian.desktop" "transmission-gtk.desktop" "caprine.desktop" "teams-for-linux.desktop" "discord.desktop" "spotify.desktop" "com.usebottles.bottles.desktop" "org.gnome.Software.desktop" ];
       welcome-dialog-last-shown-version = "47.2";
     };
@@ -77,6 +77,7 @@ with lib.hm.gvariant;
       brightness = 0.6;
       pipeline = "pipeline_default";
       sigma = 30;
+      static-blur = true;
     };
 
     "org/gnome/shell/extensions/blur-my-shell/screenshot" = {
@@ -94,7 +95,7 @@ with lib.hm.gvariant;
 
     "org/gnome/shell/extensions/coverflowalttab" = {
       position = "Top";
-      switcher-background-color = mkTuple [ 0.803921568627451 0.8392156862745098 0.9568627450980393 ];
+      switcher-background-color = mkTuple [ 0.803922 0.839216 0.956863 ];
       switcher-style = "Coverflow";
     };
 
@@ -154,6 +155,11 @@ with lib.hm.gvariant;
       window-toggle-always-float = [ "<Shift><Super>c" ];
       window-toggle-float = [ "<Super>c" ];
       workspace-active-tile-toggle = [ "<Shift><Super>w" ];
+    };
+
+    "org/gnome/shell/extensions/just-perfection" = {
+      animation = 4;
+      window-maximized-on-create = true;
     };
 
     "org/gnome/shell/extensions/logo-widget" = {

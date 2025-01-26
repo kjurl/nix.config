@@ -15,11 +15,8 @@ default:
   @just --list
 
 _pre-build:
-  dconf dump / > ./backup/dconf/alpha.txt
 
 _post-build:
-  dconf dump / > ./backup/dconf/beta.txt
-  diff -u alpha.txt beta.txt > delta.txt
 
 # Alias to `build test`
 [group('nix-build')]
@@ -29,12 +26,12 @@ _post-build:
 # Build nix-config for current system
 [group('nix-build')]
 build COMMAND *FLAGS: _pre-build && _post-build
-  nh os {{COMMAND}} . -- {{OVERRIDE_FLAKE_ROOT}} {{FLAGS}}
+  nh os {{COMMAND}} . -- {{FLAGS}} {{OVERRIDE_FLAKE_ROOT}} 
 
 # Alternative to update then switch
 [group('nix-build')]
 update: 
-  just build switch --upgrade
+  just build switch --update
 
 # Usage: just upp nixpkgs
 [group('nix-build')]

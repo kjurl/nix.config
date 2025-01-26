@@ -4,18 +4,16 @@
     app-menu-is-back
     arcmenu
     blur-my-shell
-    # caffeine
     clipboard-indicator
     color-picker
+    compact-top-bar
     dash-to-dock
     forge
     fuzzy-app-search
+    just-perfection
     logo-menu
     logo-widget
-    # quick-settings-tweaker
-    # sound-output-device-chooser
     space-bar
-    # tray-icons-reloaded
     tweaks-in-system-menu
     vitals
   ];

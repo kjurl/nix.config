@@ -5,6 +5,19 @@ with lib.hm.gvariant;
 
 {
   dconf.settings = {
+    "org/gnome/desktop/a11y/applications" = {
+      screen-keyboard-enabled = false;
+    };
+
+    "org/gnome/desktop/a11y/interface" = {
+      show-status-shapes = false;
+    };
+
+    "org/gnome/desktop/a11y/keyboard" = {
+      bouncekeys-enable = false;
+      stickykeys-enable = false;
+    };
+
     "org/gnome/desktop/app-folders" = {
       folder-children = [ "Utilities" "YaST" "Pardus" ];
     };
@@ -35,22 +48,36 @@ with lib.hm.gvariant;
       picture-uri-dark = "file:///nix/store/f61kgkdmvzk0qlylfqvbr21j6sx4ggsj-wallpaper-nix-black-4k.png";
     };
 
+    "org/gnome/desktop/calendar" = {
+      show-weekdate = false;
+    };
+
     "org/gnome/desktop/input-sources" = {
       sources = [ (mkTuple [ "xkb" "en" ]) ];
       xkb-options = [ "terminate:ctrl_alt_bksp" ];
     };
 
     "org/gnome/desktop/interface" = {
+      clock-format = "12h";
+      clock-show-date = true;
+      clock-show-seconds = false;
+      clock-show-weekday = true;
       color-scheme = "default";
       cursor-size = 24;
       cursor-theme = "Bibata-Modern-Ice";
       document-font-name = "Ubuntu Sans  11";
+      enable-animations = true;
       font-name = "Ubuntu Sans 12";
       gtk-theme = "adw-gtk3";
       icon-theme = "Adwaita";
       monospace-font-name = "JetBrainsMono Nerd Font 12";
-      show-battery-percentage = true;
+      overlay-scrolling = true;
+      show-battery-percentage = false;
       toolkit-accessibility = false;
+    };
+
+    "org/gnome/desktop/media-handling" = {
+      autorun-never = false;
     };
 
     "org/gnome/desktop/notifications" = {
@@ -75,6 +102,12 @@ with lib.hm.gvariant;
       two-finger-scrolling-enabled = true;
     };
 
+    "org/gnome/desktop/privacy" = {
+      recent-files-max-age = 7;
+      remove-old-temp-files = true;
+      remove-old-trash-files = true;
+    };
+
     "org/gnome/desktop/search-providers" = {
       disabled = [ "org.gnome.Boxes.desktop" ];
       enabled = [ "org.gnome.Weather.desktop" ];
@@ -83,6 +116,11 @@ with lib.hm.gvariant;
 
     "org/gnome/desktop/session" = {
       idle-delay = mkUint32 0;
+    };
+
+    "org/gnome/desktop/sound" = {
+      event-sounds = true;
+      theme-name = "__custom";
     };
 
     "org/gnome/desktop/wm/keybindings" = {
@@ -104,8 +142,10 @@ with lib.hm.gvariant;
       button-layout = "appmenu";
       focus-mode = "sloppy";
       mouse-button-modifier = "<Super>";
-      num-workspaces = 4;
+      num-workspaces = 6;
       resize-with-right-button = true;
+      visual-bell = false;
+      visual-bell-type = "fullscreen-flash";
     };
 
   };

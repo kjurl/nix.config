@@ -8,6 +8,7 @@ with lib.hm.gvariant;
     "org/gnome/settings-daemon/plugins/color" = {
       night-light-enabled = true;
       night-light-schedule-automatic = false;
+      night-light-temperature = mkUint32 3700;
     };
 
     "org/gnome/settings-daemon/plugins/media-keys" = {
@@ -30,7 +31,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/settings-daemon/plugins/power" = {
-      idle-dim = false;
+      idle-dim = true;
       power-button-action = "interactive";
       sleep-inactive-ac-type = "nothing";
       sleep-inactive-battery-type = "nothing";
