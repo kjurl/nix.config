@@ -48,16 +48,24 @@ init:
 tree:
   nix run github:utdemir/nix-tree
 
+
+_dconf input name:
+  dconf dump /{{input}}/ | nix run nixpkgs#dconf2nix -- --root {{input}} > modules/home-manager/desktop/dconf.generated/{{name}}.nix
+
+@_dconf-shell input name:
+  just _dconf org/gnome/shell/{{input}} {{name}}
+
 # Generate to dconf.gen
 [group('nix-tools')]
-dconf:
-  dconf dump /system/ | nix run nixpkgs#dconf2nix -- --root system > modules/home-manager/desktop/dconf.gen/system.nix
-  dconf dump /org/gnome/shell/ | nix run nixpkgs#dconf2nix -- --root /org/gnome/shell > modules/home-manager/desktop/dconf.gen/shell.nix
-  dconf dump /org/gnome/desktop/ | nix run nixpkgs#dconf2nix -- --root /org/gnome/desktop > modules/home-manager/desktop/dconf.gen/desktop.nix
-  dconf dump /org/gnome/settings-daemon/ | nix run nixpkgs#dconf2nix -- --root /org/gnome/settings-daemon > modules/home-manager/desktop/dconf.gen/settings.nix
-  dconf dump /org/gnome/mutter/ | nix run nixpkgs#dconf2nix -- --root /org/gnome/mutter > modules/home-manager/desktop/dconf.gen/mutter.nix
-  dconf dump /com/ | nix run nixpkgs#dconf2nix -- --root /com > modules/home-manager/desktop/dconf.gen/com.nix
-  dconf dump /org/virt-manager/ | nix run nixpkgs#dconf2nix -- --root /org/virt-manager > modules/home-manager/desktop/dconf.gen/virt.nix
+@dconf:
+  just _dconf com xtra 
+  just _dconf org/gnome/desktop desktop 
+  just _dconf org/gnome/mutter mutter
+  just _dconf org/gnome/settings-daemon settings
+  just _dconf org/gnome/shell shell
+  just _dconf org/virt-manager virt 
+  just _dconf system system
+  just _dconf-shell app-switcher app 
 
 # Show flake outputs
 [group('nix-info')]

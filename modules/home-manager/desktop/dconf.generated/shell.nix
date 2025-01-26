@@ -7,8 +7,8 @@ with lib.hm.gvariant;
   dconf.settings = {
     "org/gnome/shell" = {
       disable-user-extensions = false;
-      disabled-extensions = [ "dash-to-panel@jderose9.github.com" "CoverflowAltTab@palatis.blogspot.com" "quick-settings-tweaks@qwreey" "caffeine@patapon.info" "appindicatorsupport@rgcjonas.gmail.com" "forge@jmmaranan.com" ];
-      enabled-extensions = [ "user-theme@gnome-shell-extensions.gcampax.github.com" "trayIconsReloaded@selfmade.pl" "dash-to-panel@jderose9.github.com" "sound-output-device-chooser@kgshank.net" "appmenu-is-back@fthx" "arcmenu@arcmenu.com" "blur-my-shell@aunetx" "clipboard-indicator@tudmotu.com" "color-picker@tuberry" "dash-to-dock@micxgx.gmail.com" "logowidget@github.com.howbea" "gnome-fuzzy-app-search@gnome-shell-extensions.Czarlie.gitlab.com" "just-perfection-desktop@just-perfection" "logomenu@aryan_k" "space-bar@luchrioh" "tweaks-system-menu@extensions.gnome-shell.fifi.org" "Vitals@CoreCoding.com" ];
+      disabled-extensions = [ "dash-to-panel@jderose9.github.com" "CoverflowAltTab@palatis.blogspot.com" "quick-settings-tweaks@qwreey" "caffeine@patapon.info" "appindicatorsupport@rgcjonas.gmail.com" "gnome-compact-top-bar@metehan-arslan.github.io" "logowidget@github.com.howbea" "tweaks-system-menu@extensions.gnome-shell.fifi.org" ];
+      enabled-extensions = [ "user-theme@gnome-shell-extensions.gcampax.github.com" "trayIconsReloaded@selfmade.pl" "dash-to-panel@jderose9.github.com" "sound-output-device-chooser@kgshank.net" "arcmenu@arcmenu.com" "blur-my-shell@aunetx" "clipboard-indicator@tudmotu.com" "color-picker@tuberry" "dash-to-dock@micxgx.gmail.com" "gnome-fuzzy-app-search@gnome-shell-extensions.Czarlie.gitlab.com" "just-perfection-desktop@just-perfection" "logomenu@aryan_k" "space-bar@luchrioh" "Vitals@CoreCoding.com" "appmenu-is-back@fthx" "forge@jmmaranan.com" ];
       favorite-apps = [ "firefox.desktop" "org.gnome.Nautilus.desktop" "org.gnome.Calendar.desktop" "obsidian.desktop" "transmission-gtk.desktop" "caprine.desktop" "teams-for-linux.desktop" "discord.desktop" "spotify.desktop" "com.usebottles.bottles.desktop" "org.gnome.Software.desktop" ];
       welcome-dialog-last-shown-version = "47.2";
     };
@@ -99,6 +99,37 @@ with lib.hm.gvariant;
       switcher-style = "Coverflow";
     };
 
+    "org/gnome/shell/extensions/dash-to-dock" = {
+      apply-custom-theme = false;
+      apply-glossy-effect = false;
+      background-opacity = 0.8;
+      custom-background-color = false;
+      custom-theme-customize-running-dots = false;
+      custom-theme-running-dots-border-color = "rgb(255,255,255)";
+      custom-theme-running-dots-color = "rgb(255,255,255)";
+      custom-theme-shrink = true;
+      dash-max-icon-size = 48;
+      disable-overview-on-startup = true;
+      dock-fixed = false;
+      dock-position = "BOTTOM";
+      height-fraction = 0.9;
+      hot-keys = false;
+      icon-size-fixed = true;
+      intellihide-mode = "FOCUS_APPLICATION_WINDOWS";
+      preferred-monitor = -2;
+      preferred-monitor-by-connector = "eDP-1";
+      preview-size-scale = 0.0;
+      running-indicator-dominant-color = true;
+      running-indicator-style = "DOTS";
+      scroll-action = "cycle-windows";
+      show-apps-always-in-the-edge = false;
+      show-show-apps-button = false;
+      show-trash = false;
+      show-windows-preview = true;
+      transparency-mode = "DEFAULT";
+      unity-backlit-items = false;
+    };
+
     "org/gnome/shell/extensions/dash-to-panel" = {
       available-monitors = [ 0 ];
       primary-monitor = 0;
@@ -107,11 +138,13 @@ with lib.hm.gvariant;
     "org/gnome/shell/extensions/forge" = {
       css-last-update = mkUint32 37;
       dnd-center-layout = "swap";
+      focus-border-toggle = false;
       move-pointer-focus-enabled = false;
       preview-hint-enabled = false;
       stacked-tiling-mode-enabled = false;
       tabbed-tiling-mode-enabled = false;
       tiling-mode-enabled = true;
+      window-gap-hidden-on-single = false;
       window-gap-size = mkUint32 2;
     };
 
@@ -123,6 +156,7 @@ with lib.hm.gvariant;
       con-tabbed-layout-toggle = [ "<Shift><Super>t" ];
       con-tabbed-showtab-decoration-toggle = [ "<Control><Alt>y" ];
       focus-border-toggle = [ "<Super>x" ];
+      mod-mask-mouse-tile = "None";
       prefs-tiling-toggle = [ "<Super>w" ];
       window-focus-down = [ "<Super>j" ];
       window-focus-left = [ "<Super>h" ];
@@ -158,8 +192,37 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell/extensions/just-perfection" = {
-      animation = 4;
-      window-maximized-on-create = true;
+      accent-color-icon = false;
+      accessibility-menu = true;
+      animation = 1;
+      background-menu = true;
+      controls-manager-spacing-size = 0;
+      dash = true;
+      dash-icon-size = 0;
+      double-super-to-appgrid = true;
+      invert-calendar-column-items = false;
+      max-displayed-search-results = 0;
+      osd = true;
+      panel = true;
+      panel-button-padding-size = 3;
+      panel-icon-size = 0;
+      panel-in-overview = true;
+      panel-indicator-padding-size = 4;
+      panel-size = 0;
+      ripple-box = true;
+      search = true;
+      show-apps-button = true;
+      startup-status = 1;
+      theme = false;
+      window-demands-attention-focus = false;
+      window-maximized-on-create = false;
+      window-picker-icon = true;
+      window-preview-caption = true;
+      window-preview-close-button = true;
+      workspace = true;
+      workspace-background-corner-size = 0;
+      workspace-popup = true;
+      workspaces-in-app-grid = true;
     };
 
     "org/gnome/shell/extensions/logo-widget" = {
@@ -181,9 +244,14 @@ with lib.hm.gvariant;
       always-show-numbers = false;
       indicator-style = "workspaces-bar";
       position = "left";
+      scroll-wheel = "panel";
       show-empty-workspaces = false;
-      smart-workspace-names = true;
+      smart-workspace-names = false;
       toggle-overview = false;
+    };
+
+    "org/gnome/shell/extensions/space-bar/shortcuts" = {
+      enable-move-to-workspace-shortcuts = true;
     };
 
     "org/gnome/shell/extensions/space-bar/state" = {
@@ -207,13 +275,15 @@ with lib.hm.gvariant;
     "org/gnome/shell/extensions/vitals" = {
       alphabetize = true;
       fixed-widths = true;
-      hide-icons = false;
+      hide-icons = true;
       hide-zeros = true;
       icon-style = 1;
-      menu-centered = true;
+      include-static-gpu-info = false;
+      menu-centered = false;
       position-in-panel = 2;
       show-battery = true;
       show-gpu = true;
+      show-system = false;
       show-temperature = true;
       update-time = 5;
       use-higher-precision = false;
