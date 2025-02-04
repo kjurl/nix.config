@@ -1,6 +1,11 @@
 name: "winapps" # Docker Compose Project Name.
 volumes:
   data:
+    driver: local
+    driver_opts:
+      device: /mnt/internal-hdd/windows/data
+      type: none
+      o: bind
   # Create Volume 'data'.
   # Located @ '/var/lib/docker/volumes/winapps_data/_data' (Docker).
   # Located @ '/var/lib/containers/storage/volumes/winapps_data/_data' or '~/.local/share/containers/storage/volumes/winapps_data/_data' (Podman).
@@ -12,7 +17,7 @@ services:
       # Version of Windows to configure. For valid options, visit:
       # https://github.com/dockur/windows?tab=readme-ov-file#how-do-i-select-the-windows-version
       # https://github.com/dockur/windows?tab=readme-ov-file#how-do-i-install-a-custom-image
-      VERSION: "core11"
+      VERSION: "11i"
       RAM_SIZE: "8G" # RAM allocated to the Windows VM.
       CPU_CORES: "6" # CPU cores allocated to the Windows VM.
       DISK_SIZE: "64G" # Size of the primary hard disk.
@@ -27,7 +32,9 @@ services:
     stop_grace_period: 120s # Wait 120 seconds before sending SIGTERM when attempting to shut down the Windows VM.
     restart: on-failure # Restart the Windows VM if the exit code indicates an error.
     volumes:
+      - /mnt/internal-hdd/windows/windows11iot-26100.1.240331-1435.ge_release_CLIENT_IOT_LTSC_EVAL_x64FRE.iso:/custom.iso
       - data:/storage # Mount volume 'data' to use as Windows 'C:' drive.
       - ${HOME}:/shared # Mount Linux user home directory @ '\\host.lan\Data'.
+      - /mnt/internal-hdd:/shared/okok # Mount Linux user home directory @ '\\host.lan\Data'.
     devices:
       - /dev/kvm # Enable KVM.

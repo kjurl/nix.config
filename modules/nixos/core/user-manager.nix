@@ -32,7 +32,7 @@ in {
       home-manager = {
         useGlobalPkgs = true;
         useUserPackages = true;
-        backupFileExtension = "backup";
+        backupFileExtension = "bak";
         users.${username} = usr;
         sharedModules = [ ../../home-manager ];
         extraSpecialArgs = { inherit self inputs username hostname; };

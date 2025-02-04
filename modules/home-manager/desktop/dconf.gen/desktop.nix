@@ -19,33 +19,37 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/app-folders" = {
-      folder-children = [ "Utilities" "YaST" "Pardus" ];
+      folder-children = [ "Utilities" "2a505edf-510b-4a3f-aa2b-caab96f97ca6" "869ec47d-e8ef-4463-82cc-4ebace8b8902" ];
     };
 
-    "org/gnome/desktop/app-folders/folders/Pardus" = {
-      categories = [ "X-Pardus-Apps" ];
-      name = "X-Pardus-Apps.directory";
-      translate = true;
+    "org/gnome/desktop/app-folders/folders/2a505edf-510b-4a3f-aa2b-caab96f97ca6" = {
+      apps = [ "cmd.desktop" "explorer.desktop" "powershell-ide.desktop" "powershell.desktop" "windows.desktop" ];
+      name = "Windows";
+      translate = false;
+    };
+
+    "org/gnome/desktop/app-folders/folders/444d9613-38e4-4994-94f4-eed2730ad57b" = {
+      apps = [ "access.desktop" "excel-o365.desktop" "onenote-o365.desktop" "outlook-o365.desktop" "powerpoint-o365.desktop" "word-o365.desktop" ];
+      name = "Office";
+    };
+
+    "org/gnome/desktop/app-folders/folders/869ec47d-e8ef-4463-82cc-4ebace8b8902" = {
+      apps = [ "access.desktop" "excel-o365.desktop" "onenote-o365.desktop" "outlook-o365.desktop" "powerpoint-o365.desktop" "word-o365.desktop" ];
+      name = "Office";
     };
 
     "org/gnome/desktop/app-folders/folders/Utilities" = {
-      apps = [ "org.freedesktop.GnomeAbrt.desktop" "nm-connection-editor.desktop" "org.gnome.baobab.desktop" "org.gnome.Connections.desktop" "org.gnome.DejaDup.desktop" "org.gnome.DiskUtility.desktop" "org.gnome.Evince.desktop" "org.gnome.FileRoller.desktop" "org.gnome.font-viewer.desktop" "org.gnome.Loupe.desktop" "org.gnome.seahorse.Application.desktop" "org.gnome.tweaks.desktop" "org.gnome.Usage.desktop" ];
+      apps = [ "org.gnome.baobab.desktop" "org.gnome.DiskUtility.desktop" "org.gnome.Evince.desktop" "org.gnome.FileRoller.desktop" "org.gnome.Loupe.desktop" "org.gnome.seahorse.Application.desktop" "org.gnome.tweaks.desktop" "org.freedesktop.GnomeAbrt.desktop" "nm-connection-editor.desktop" "org.gnome.Connections.desktop" "org.gnome.DejaDup.desktop" "org.gnome.font-viewer.desktop" "org.gnome.Usage.desktop" ];
       categories = [ "X-GNOME-Utilities" ];
       name = "X-GNOME-Utilities.directory";
-      translate = true;
-    };
-
-    "org/gnome/desktop/app-folders/folders/YaST" = {
-      categories = [ "X-SuSE-YaST" ];
-      name = "suse-yast.directory";
       translate = true;
     };
 
     "org/gnome/desktop/background" = {
       color-shading-type = "solid";
       picture-options = "zoom";
-      picture-uri = "file:///nix/store/f61kgkdmvzk0qlylfqvbr21j6sx4ggsj-wallpaper-nix-black-4k.png";
-      picture-uri-dark = "file:///nix/store/f61kgkdmvzk0qlylfqvbr21j6sx4ggsj-wallpaper-nix-black-4k.png";
+      picture-uri = "file:///nix/store/zrvky5rs9rzbwhdff37j8vv1l49z516n-wallpaper.jpg";
+      picture-uri-dark = "file:///nix/store/zrvky5rs9rzbwhdff37j8vv1l49z516n-wallpaper.jpg";
     };
 
     "org/gnome/desktop/calendar" = {
@@ -81,11 +85,31 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/notifications" = {
-      application-children = [ "firefox" ];
+      application-children = [ "firefox" "org-gnome-fileroller" "org-gnome-baobab" "gnome-power-panel" "org-gnome-nautilus" ];
     };
 
     "org/gnome/desktop/notifications/application/firefox" = {
       application-id = "firefox.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/gnome-power-panel" = {
+      application-id = "gnome-power-panel.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/org-gnome-baobab" = {
+      application-id = "org.gnome.baobab.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/org-gnome-fileroller" = {
+      application-id = "org.gnome.FileRoller.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/org-gnome-nautilus" = {
+      application-id = "org.gnome.Nautilus.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/org-gnome-systemmonitor" = {
+      application-id = "org.gnome.SystemMonitor.desktop";
     };
 
     "org/gnome/desktop/peripherals/keyboard" = {

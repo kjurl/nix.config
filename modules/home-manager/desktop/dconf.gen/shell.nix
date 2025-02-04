@@ -7,9 +7,10 @@ with lib.hm.gvariant;
   dconf.settings = {
     "org/gnome/shell" = {
       disable-user-extensions = false;
-      disabled-extensions = [ "dash-to-panel@jderose9.github.com" "CoverflowAltTab@palatis.blogspot.com" "quick-settings-tweaks@qwreey" "caffeine@patapon.info" "appindicatorsupport@rgcjonas.gmail.com" "gnome-compact-top-bar@metehan-arslan.github.io" "logowidget@github.com.howbea" "tweaks-system-menu@extensions.gnome-shell.fifi.org" ];
-      enabled-extensions = [ "user-theme@gnome-shell-extensions.gcampax.github.com" "trayIconsReloaded@selfmade.pl" "dash-to-panel@jderose9.github.com" "sound-output-device-chooser@kgshank.net" "arcmenu@arcmenu.com" "blur-my-shell@aunetx" "clipboard-indicator@tudmotu.com" "color-picker@tuberry" "dash-to-dock@micxgx.gmail.com" "gnome-fuzzy-app-search@gnome-shell-extensions.Czarlie.gitlab.com" "just-perfection-desktop@just-perfection" "logomenu@aryan_k" "space-bar@luchrioh" "Vitals@CoreCoding.com" "appmenu-is-back@fthx" "forge@jmmaranan.com" ];
+      disabled-extensions = [ "dash-to-panel@jderose9.github.com" "CoverflowAltTab@palatis.blogspot.com" "quick-settings-tweaks@qwreey" "caffeine@patapon.info" "appindicatorsupport@rgcjonas.gmail.com" "gnome-compact-top-bar@metehan-arslan.github.io" "logowidget@github.com.howbea" "tweaks-system-menu@extensions.gnome-shell.fifi.org" "arcmenu@arcmenu.com" "Vitals@CoreCoding.com" "blur-my-shell@aunetx" "space-bar@luchrioh" ];
+      enabled-extensions = [ "user-theme@gnome-shell-extensions.gcampax.github.com" "trayIconsReloaded@selfmade.pl" "dash-to-panel@jderose9.github.com" "sound-output-device-chooser@kgshank.net" "clipboard-indicator@tudmotu.com" "color-picker@tuberry" "dash-to-dock@micxgx.gmail.com" "gnome-fuzzy-app-search@gnome-shell-extensions.Czarlie.gitlab.com" "logomenu@aryan_k" "appmenu-is-back@fthx" "forge@jmmaranan.com" "just-perfection-desktop@just-perfection" "AlphabeticalAppGrid@stuarthayhurst" ];
       favorite-apps = [ "firefox.desktop" "org.gnome.Nautilus.desktop" "org.gnome.Calendar.desktop" "obsidian.desktop" "transmission-gtk.desktop" "caprine.desktop" "teams-for-linux.desktop" "discord.desktop" "spotify.desktop" "com.usebottles.bottles.desktop" "org.gnome.Software.desktop" ];
+      last-selected-power-profile = "power-saver";
       welcome-dialog-last-shown-version = "47.2";
     };
 
@@ -18,9 +19,18 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell/extensions/Logo-menu" = {
+      hide-forcequit = false;
+      hide-icon-shadow = false;
+      hide-softwarecentre = true;
       menu-button-icon-image = 18;
+      show-activities-button = true;
+      show-power-options = false;
       symbolic-icon = false;
       use-custom-icon = false;
+    };
+
+    "org/gnome/shell/extensions/alphabetical-app-grid" = {
+      folder-order-position = "start";
     };
 
     "org/gnome/shell/extensions/arcmenu" = {
@@ -30,17 +40,28 @@ with lib.hm.gvariant;
       custom-menu-button-icon-size = 25.0;
       dash-to-panel-standalone = false;
       distro-icon = 22;
+      force-menu-location = "TopCentered";
       hide-overview-on-startup = true;
+      highlight-search-result-terms = true;
       menu-button-appearance = "None";
       menu-button-icon = "Custom_Icon";
+      menu-button-left-click-action = "ArcMenu";
       menu-button-position-offset = 0;
       menu-layout = "Default";
       menu-position-alignment = 50;
       multi-monitor = false;
+      override-menu-theme = false;
       position-in-panel = "Left";
       prefs-visible-page = 0;
+      recently-installed-apps = [];
       runner-hotkey = [ "<Super>a" ];
+      runner-search-display-style = "Grid";
+      runner-show-frequent-apps = false;
       search-entry-border-radius = mkTuple [ true 25 ];
+      search-provider-open-windows = true;
+      search-provider-recent-files = true;
+      show-activities-button = true;
+      show-search-result-details = true;
     };
 
     "org/gnome/shell/extensions/blur-my-shell" = {
@@ -52,6 +73,16 @@ with lib.hm.gvariant;
       sigma = 30;
     };
 
+    "org/gnome/shell/extensions/blur-my-shell/applications" = {
+      blur = false;
+      blur-on-overview = false;
+      brightness = 1.0;
+      dynamic-opacity = true;
+      enable-all = true;
+      opacity = 245;
+      sigma = 10;
+    };
+
     "org/gnome/shell/extensions/blur-my-shell/coverflow-alt-tab" = {
       pipeline = "pipeline_default";
     };
@@ -59,6 +90,7 @@ with lib.hm.gvariant;
     "org/gnome/shell/extensions/blur-my-shell/dash-to-dock" = {
       blur = true;
       brightness = 0.6;
+      override-background = true;
       pipeline = "pipeline_default_rounded";
       sigma = 30;
       static-blur = true;
@@ -91,6 +123,17 @@ with lib.hm.gvariant;
 
     "org/gnome/shell/extensions/caffeine" = {
       indicator-position-max = 2;
+    };
+
+    "org/gnome/shell/extensions/clipboard-indicator" = {
+      disable-down-arrow = true;
+      display-mode = 0;
+      history-size = 10;
+    };
+
+    "org/gnome/shell/extensions/color-picker" = {
+      color-history = [ (mkUint32 0) 1383203 6397930 6397930 6397930 2021216 ];
+      menu-style = false;
     };
 
     "org/gnome/shell/extensions/coverflowalttab" = {
@@ -137,15 +180,19 @@ with lib.hm.gvariant;
 
     "org/gnome/shell/extensions/forge" = {
       css-last-update = mkUint32 37;
+      css-updated = "1738423196080";
       dnd-center-layout = "swap";
+      float-always-on-top-enabled = true;
       focus-border-toggle = false;
       move-pointer-focus-enabled = false;
       preview-hint-enabled = false;
+      quick-settings-enabled = true;
       stacked-tiling-mode-enabled = false;
       tabbed-tiling-mode-enabled = false;
       tiling-mode-enabled = true;
       window-gap-hidden-on-single = false;
       window-gap-size = mkUint32 2;
+      window-gap-size-increment = mkUint32 1;
     };
 
     "org/gnome/shell/extensions/forge/keybindings" = {
@@ -194,25 +241,27 @@ with lib.hm.gvariant;
     "org/gnome/shell/extensions/just-perfection" = {
       accent-color-icon = false;
       accessibility-menu = true;
-      animation = 1;
+      animation = 2;
       background-menu = true;
       controls-manager-spacing-size = 0;
       dash = true;
       dash-icon-size = 0;
       double-super-to-appgrid = true;
       invert-calendar-column-items = false;
+      looking-glass-height = 0;
       max-displayed-search-results = 0;
       osd = true;
+      overlay-key = true;
       panel = true;
-      panel-button-padding-size = 3;
+      panel-button-padding-size = 0;
       panel-icon-size = 0;
       panel-in-overview = true;
-      panel-indicator-padding-size = 4;
+      panel-indicator-padding-size = 1;
       panel-size = 0;
       ripple-box = true;
       search = true;
       show-apps-button = true;
-      startup-status = 1;
+      startup-status = 0;
       theme = false;
       window-demands-attention-focus = false;
       window-maximized-on-create = false;
@@ -221,7 +270,10 @@ with lib.hm.gvariant;
       window-preview-close-button = true;
       workspace = true;
       workspace-background-corner-size = 0;
+      workspace-peek = false;
       workspace-popup = true;
+      workspace-switcher-should-show = false;
+      workspace-switcher-size = 0;
       workspaces-in-app-grid = true;
     };
 
@@ -235,7 +287,13 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell/extensions/space-bar/appearance" = {
-      application-styles = ".space-bar {n  -natural-hpadding: 0px;n}nn.space-bar-workspace-label.active {n  margin: 0 0px;n  background-color: rgba(255,255,255,0.3);n  color: rgba(255,255,255,1);n  border-color: rgba(0,0,0,0);n  font-weight: 700;n  border-radius: 4px;n  border-width: 0px;n  padding: 3px 8px;n}nn.space-bar-workspace-label.inactive {n  margin: 0 0px;n  background-color: rgba(0,0,0,0);n  color: rgba(255,255,255,1);n  border-color: rgba(0,0,0,0);n  font-weight: 700;n  border-radius: 4px;n  border-width: 0px;n  padding: 3px 8px;n}nn.space-bar-workspace-label.inactive.empty {n  margin: 0 0px;n  background-color: rgba(0,0,0,0);n  color: rgba(255,255,255,0.5);n  border-color: rgba(0,0,0,0);n  font-weight: 700;n  border-radius: 4px;n  border-width: 0px;n  padding: 3px 8px;n}";
+      active-workspace-border-radius = 15;
+      active-workspace-border-width = 255;
+      application-styles = ".space-bar {n  -natural-hpadding: 0px;n}nn.space-bar-workspace-label.active {n  margin: 0 0px;n  background-color: rgba(255,255,255,0.3);n  color: rgba(255,255,255,1);n  border-color: rgba(0,0,0,0);n  font-weight: 700;n  border-radius: 15px;n  border-width: 255px;n  padding: 3px 8px;n}nn.space-bar-workspace-label.inactive {n  margin: 0 0px;n  background-color: rgba(0,0,0,0);n  color: rgba(255,255,255,1);n  border-color: rgba(0,0,0,0);n  font-weight: 700;n  border-radius: 15px;n  border-width: 255px;n  padding: 3px 8px;n}nn.space-bar-workspace-label.inactive.empty {n  margin: 0 0px;n  background-color: rgba(0,0,0,0);n  color: rgba(255,255,255,0.5);n  border-color: rgba(0,0,0,0);n  font-weight: 700;n  border-radius: 15px;n  border-width: 255px;n  padding: 3px 8px;n}";
+      empty-workspace-border-radius = 15;
+      empty-workspace-border-width = 255;
+      inactive-workspace-border-radius = 15;
+      inactive-workspace-border-width = 255;
       workspace-margin = 0;
       workspaces-bar-padding = 0;
     };

@@ -22,6 +22,9 @@ in {
       home.packages = with pkgs; [
         bitwarden-desktop
         obsidian
+        gparted
+        clapper
+        showtime
         # zapzap
         # inputs.hyprland-qtutils.packages.${pkgs.system}.hyprland-qtutils
       ];

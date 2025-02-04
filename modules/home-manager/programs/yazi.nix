@@ -7,7 +7,7 @@ in {
     programs.yazi = {
       enable = true;
       enableZshIntegration = true;
-      package = pkgs.unstable.yazi;
+      # package = pkgs.unstable.yazi;
       settings = {
         manager.ratio = [ 1 3 4 ];
         preview = {

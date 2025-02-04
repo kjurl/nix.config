@@ -40,33 +40,36 @@
         ];
 
         gnome.excludePackages = with pkgs; [
-          # gnome-text-editor
-          gnome-console
-          gnome-initial-setup
-          gnome-shell-extensions
-          snapshot
-
-          yelp # Help view
-          gnome-connections
           gnome-characters
-          gnome-font-viewer
+          gnome-connections
+          gnome-console
           gnome-contacts
+          gnome-font-viewer
+          gnome-initial-setup
           gnome-maps
+          gnome-shell-extensions
+          gnome-text-editor
+          gnome-weather
+          simple-scan
+          snapshot
+          xterm
+          yelp # Help view
+
           epiphany # web browser
-          geary # email reader
           evince # document viewer
-          gedit
+          geary # email reader
+          # gedit
 
-          gnome-photos
-          gnome-music
           cheese # webcam tool
-          totem # video player
+          gnome-music
+          gnome-photos
+          totem # gnome-video
 
-          gnome-tour
-          tali # poker game
-          iagno # go game
-          hitori # sudoku game
           atomix # puzzle game
+          gnome-tour
+          hitori # sudoku game
+          iagno # go game
+          tali # poker game
         ];
       };
     })

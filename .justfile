@@ -48,24 +48,27 @@ init:
 tree:
   nix run github:utdemir/nix-tree
 
-
 _dconf input name:
-  dconf dump /{{input}}/ | nix run nixpkgs#dconf2nix -- --root {{input}} > modules/home-manager/desktop/dconf.generated/{{name}}.nix
+  dconf dump /{{input}}/ | \
+  sed '/app-picker-layout/d' | \
+  nix run nixpkgs#dconf2nix -- --root {{input}} > \
+  modules/home-manager/desktop/dconf.gen/{{name}}.nix
 
-@_dconf-shell input name:
-  just _dconf org/gnome/shell/{{input}} {{name}}
-
-# Generate to dconf.gen
+# Generate to dconf-nix
 [group('nix-tools')]
 @dconf:
-  just _dconf com xtra 
+  just _dconf com xtra-com 
+  just _dconf system system
+
   just _dconf org/gnome/desktop desktop 
   just _dconf org/gnome/mutter mutter
   just _dconf org/gnome/settings-daemon settings
+
+  # just _dconf org/gnome/nautilus appNautilus
+  # just _dconf org/gnome/gedit appGedit
+
   just _dconf org/gnome/shell shell
   just _dconf org/virt-manager virt 
-  just _dconf system system
-  just _dconf-shell app-switcher app 
 
 # Show flake outputs
 [group('nix-info')]

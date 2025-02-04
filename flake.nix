@@ -13,9 +13,10 @@
       systems = [ "aarch64-linux" "x86_64-linux" "aarch64-darwin" ];
 
       perSystem = { config, self', inputs', pkgs, system, ... }: {
-        packages = import ./packages lP.${system};
-        formatter = lP.${system}.nixfmt-classic;
 
+        packages = import ./packages lP.${system};
+
+        formatter = lP.${system}.nixfmt-classic;
         checks.lint-check = let pkgs = import nixpkgs { inherit system; };
         in pkgs.runCommandLocal "lint-check" {
           nativeBuildInputs = with pkgs; [ statix deadnix ];
@@ -75,16 +76,22 @@
     # Official NixOS package source, using nixos's unstable branch by default
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     stable.url = "github:nixos/nixpkgs/nixos-24.11";
-    impermanence.url = "github:nix-community/impermanence";
-    nix-topology.url = "github:oddlama/nix-topology";
-    flake-parts.url = "github:hercules-ci/flake-parts";
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    sops-nix.url = "github:Mic92/sops-nix";
-    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
-    haumea.url = "github:nix-community/haumea/v0.2.2";
-    haumea.inputs.nixpkgs.follows = "nixpkgs";
     devenv.url = "github:cachix/devenv";
+    impermanence.url = "github:nix-community/impermanence";
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    haumea = {
+      url = "github:nix-community/haumea/v0.2.2";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix2container.url = "github:nlewo/nix2container";
     nix2container.inputs.nixpkgs.follows = "nixpkgs";
     lanzaboote = {

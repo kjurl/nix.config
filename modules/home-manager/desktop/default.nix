@@ -41,7 +41,7 @@ in {
       file = lib.last (lib.splitString "/" url);
     in {
       default = mkOption {
-        type = lib.types.path;
+        type = lib.types.string;
         default = builtins.fetchurl {
           name = "wallpaper-${file}";
           inherit url sha256;
