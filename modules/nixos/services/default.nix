@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, config, username, ... }:
 let inherit (lib) utils mkEnableOption;
 in {
   imports = utils.scanPaths ./.;
@@ -15,10 +15,12 @@ in {
     vpn.enable = mkEnableOption "vpn";
   };
 
-  config = {
+  config = let homeConfig = config.home-manager.users.${username};
+  in {
     services = {
-      tumbler.enable = true;
+      # flatpak.enable = homeConfig.modules.services.flatpak.enable;
       gvfs.enable = true;
+      tumbler.enable = true;
     };
   };
 }

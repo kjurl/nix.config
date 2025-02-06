@@ -5,6 +5,10 @@ with lib.hm.gvariant;
 
 {
   dconf.settings = {
+    "org/gnome/desktop/a11y" = {
+      always-show-universal-access-status = false;
+    };
+
     "org/gnome/desktop/a11y/applications" = {
       screen-keyboard-enabled = false;
     };
@@ -119,6 +123,10 @@ with lib.hm.gvariant;
 
     "org/gnome/desktop/peripherals/keyboard/delay" = {
       uint32 = 180;
+    };
+
+    "org/gnome/desktop/peripherals/mouse" = {
+      accel-profile = "flat";
     };
 
     "org/gnome/desktop/peripherals/touchpad" = {

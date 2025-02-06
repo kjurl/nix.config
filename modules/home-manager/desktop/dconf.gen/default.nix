@@ -5,18 +5,14 @@
     pkgs.dconf-editor
     pkgs.gnome-tweaks
 
+    gsconnect
+    just-perfection
+
+    forge
+
     alphabetical-app-grid
-    arcmenu
-    blur-my-shell
     clipboard-indicator
     color-picker
     dash-to-dock
-    forge
-    fuzzy-app-search
-    gsconnect
-    just-perfection
-    logo-menu
-    space-bar
-    vitals
   ];
 }

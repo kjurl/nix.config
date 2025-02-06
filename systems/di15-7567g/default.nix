@@ -36,6 +36,7 @@
     };
 
     system = {
+      gaming.enable = true;
       desktop = {
         enable = true;
         # displayManager.greetd.enable = true;

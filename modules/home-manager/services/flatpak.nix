@@ -1,7 +1,5 @@
 { lib, config, inputs, ... }: {
-
   imports = [ inputs.nix-flatpak.homeManagerModules.nix-flatpak ];
-
   config = let cfg = config.modules.services.flatpak;
   in lib.mkIf cfg.enable {
     services.flatpak = {

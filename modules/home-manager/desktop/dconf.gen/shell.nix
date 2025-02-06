@@ -9,7 +9,7 @@ with lib.hm.gvariant;
       disable-user-extensions = false;
       disabled-extensions = [ "dash-to-panel@jderose9.github.com" "CoverflowAltTab@palatis.blogspot.com" "quick-settings-tweaks@qwreey" "caffeine@patapon.info" "appindicatorsupport@rgcjonas.gmail.com" "gnome-compact-top-bar@metehan-arslan.github.io" "logowidget@github.com.howbea" "tweaks-system-menu@extensions.gnome-shell.fifi.org" "arcmenu@arcmenu.com" "Vitals@CoreCoding.com" "blur-my-shell@aunetx" "space-bar@luchrioh" ];
       enabled-extensions = [ "user-theme@gnome-shell-extensions.gcampax.github.com" "trayIconsReloaded@selfmade.pl" "dash-to-panel@jderose9.github.com" "sound-output-device-chooser@kgshank.net" "clipboard-indicator@tudmotu.com" "color-picker@tuberry" "dash-to-dock@micxgx.gmail.com" "gnome-fuzzy-app-search@gnome-shell-extensions.Czarlie.gitlab.com" "logomenu@aryan_k" "appmenu-is-back@fthx" "forge@jmmaranan.com" "just-perfection-desktop@just-perfection" "AlphabeticalAppGrid@stuarthayhurst" ];
-      favorite-apps = [ "firefox.desktop" "org.gnome.Nautilus.desktop" "org.gnome.Calendar.desktop" "obsidian.desktop" "transmission-gtk.desktop" "caprine.desktop" "teams-for-linux.desktop" "discord.desktop" "spotify.desktop" "com.usebottles.bottles.desktop" "org.gnome.Software.desktop" ];
+      favorite-apps = [ "firefox.desktop" "org.gnome.Nautilus.desktop" "spotify.desktop" ];
       last-selected-power-profile = "power-saver";
       welcome-dialog-last-shown-version = "47.2";
     };
@@ -236,6 +236,17 @@ with lib.hm.gvariant;
       window-toggle-always-float = [ "<Shift><Super>c" ];
       window-toggle-float = [ "<Super>c" ];
       workspace-active-tile-toggle = [ "<Shift><Super>w" ];
+    };
+
+    "org/gnome/shell/extensions/gsconnect" = {
+      id = "aa16aeeb-ab3f-4779-8515-e660ecacb852";
+      name = "di15-7567g";
+      show-indicators = true;
+    };
+
+    "org/gnome/shell/extensions/gsconnect/preferences" = {
+      window-maximized = false;
+      window-size = mkTuple [ 954 990 ];
     };
 
     "org/gnome/shell/extensions/just-perfection" = {
