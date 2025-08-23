@@ -4,6 +4,7 @@ on:
   # schedule:
   #   - cron: '0 0 * * 5' # Every week on Friday.
 jobs:
+  if: false
   update:
     runs-on: ubuntu-latest
     env:

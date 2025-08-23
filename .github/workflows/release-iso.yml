@@ -6,6 +6,7 @@ on:
   #   paths-ignore:
   #     - docs/
 jobs:
+  if: false
   build-iso:
     strategy:
       matrix:
