@@ -1,3 +1,9 @@
+secrets.json
+todo.*
+
+# Binary Files
+*.bin
+
 # Devenv
 .devenv*
 devenv.local.nix

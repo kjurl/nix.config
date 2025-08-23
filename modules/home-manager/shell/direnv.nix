@@ -1,6 +1,6 @@
 { lib, config, inputs, ... }:
 let cfg = config.modules.shell;
-in lib.mkIf cfg.enable {
+in lib.mkIf true {
   programs.direnv = {
     enable = true;
     silent = true;

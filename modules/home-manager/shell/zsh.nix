@@ -3,12 +3,15 @@
   config = lib.mkIf config.modules.shell.zsh.enable {
     programs.zsh = {
       enable = true;
-      defaultKeymap = "viins";
       dotDir = ".config/zsh";
+      defaultKeymap = "viins";
+
       enableCompletion = true;
+      enableAutosuggestions = true;
       syntaxHighlighting.enable = true;
 
       history = {
+        size = 10000;
         ignoreSpace = true;
         path = "${config.xdg.cacheHome}/zsh/history";
       };
@@ -16,6 +19,22 @@
       localVariables = {
         VI_MODE_RESET_PROMPT_ON_MODE_CHANGE = true;
         VI_MODE_SET_CURSOR = true;
+      };
+
+      oh-my-zsh = {
+        enable = true;
+        theme = "robbyrussell";
+        plugins = [
+          "git"
+          "docker"
+          "node"
+          "npm"
+          "python"
+          "rust"
+          "golang"
+          "kubectl"
+          "terraform"
+        ];
       };
 
       completionInit = ''

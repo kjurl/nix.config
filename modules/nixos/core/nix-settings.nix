@@ -2,8 +2,20 @@
 let flakeInputs = lib.attrsets.filterAttrs (_: lib.isType "flake") inputs;
 in {
   nixpkgs = {
-    overlays = [ outputs.overlays.default ];
-    config.allowUnfree = true;
+    overlays = [
+      inputs.nur.overlays.default
+      outputs.overlays.default
+      # (_final: prev: {
+      #   unstable = import nixpkgs-unstable {
+      #     inherit (prev) system;
+      #     inherit config;
+      #   };
+      # })
+    ];
+    config = {
+      allowUnfree = true;
+      permittedInsecurePackages = [ ];
+    };
   };
   nix = {
     channel.enable = false;
@@ -23,12 +35,12 @@ in {
       flake-registry = "";
       # Workaround for https://github.com/NixOS/nix/issues/9574
       nix-path = config.nix.nixPath;
+      accept-flake-config = true;
       auto-optimise-store = true;
       warn-dirty = false;
     };
     gc = {
       automatic = true;
-      dates = "weekly";
       options = "--delete-older-than 7d";
     };
     optimise.automatic = true;

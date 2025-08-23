@@ -1,6 +1,6 @@
 { lib, config, ... }:
 let cfg = config.modules.shell;
-in lib.mkIf cfg.enable {
+in lib.mkIf true {
   programs.starship = {
     enable = true;
     enableBashIntegration = true;

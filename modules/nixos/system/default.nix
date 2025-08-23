@@ -1,1 +1,1 @@
-{ lib, ... }: { imports = lib.utils.scanPaths ./.; }
+{ lib, ... }: { imports = lib.x.imports.scanPaths ./.; }

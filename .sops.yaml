@@ -1,9 +1,0 @@
-keys:
-  - &di15-7567g_kanishkc age1rjh57tmt7qmgg0dxdn0eflhnjnw9g0sh8svdkhjmtqc3vu88ks4sd8ttnq
-  - &host_di15-7567g age1mgnwjvcp5jsqn6tycavlaxe73r3zxh76d4j4cdy693hwwttzzs5qkjuwr8
-creation_rules:
-  - path_regex: secrets/[^/]+\.(yaml|json|env|ini)$
-    key_groups:
-    - age:
-      - *di15-7567g_kanishkc
-      - *host_di15-7567g

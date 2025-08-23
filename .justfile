@@ -18,6 +18,9 @@ _pre-build:
 
 _post-build:
 
+identifier-remove:
+  sudo find . -name "*.Identifier" -type f -delete
+
 # Alias to `build test`
 [group('nix-build')]
 @b:

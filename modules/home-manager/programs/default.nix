@@ -1,66 +1,48 @@
-{ lib, pkgs, config, inputs, ... }:
-let inherit (lib) mkEnableOption;
-in {
-  # imports = with inputs.haumea.lib;
-  #   lib.attrsets.collect builtins.isPath (load {
-  #     src = ./.;
-  #     loader = loaders.path;
-  #     transformer = [
-  #       # (transformers.hoistAttrs "options" "options")
-  #       # transformers.liftDefault
-  #     ];
-  #   });
-  imports = lib.utils.scanPaths ./. ++ [ ];
+{ lib, pkgs, config, ... }:
+lib.x.options.auto ./. config [ "core" ]  (cfg: {
+  imports = lib.x.imports.scanPaths ./. ++ [ ];
+  options.git-features = {
+    userName = lib.mkOption { type = lib.types.str; };
+    userEmail = lib.mkOption { type = lib.types.str; };
+    github = {
+      cli-tool.enable = lib.mkEnableOption "github-cli";
+      dashboard.enable = lib.mkEnableOption "github-tui";
+    };
+    changelog-helper.enable = lib.mkEnableOption "git-cliff";
+  };
+  config.programs = let gitCfg = cfg.git-features;
+  in {
+    nix-index.enable = true;
+    nix-index.enableBashIntegration = true;
+    pandoc.enable = false;
 
-  options.modules.programs = {
-    media = { enable = mkEnableOption "media tools"; };
+    git = {
+      enable = true;
+      lfs.enable = true;
+      delta.enable = true;
+      inherit (gitCfg) userName userEmail;
+      aliases = {
+        ci = "commit";
+        co = "checkout";
+        s = "status";
+      };
+      extraConfig = {
+        init.defaultBranch = "main";
+        push = { autoSetupRemote = true; };
+        credentials.helper = "store";
+        credential.helper = "${
+            pkgs.git.override { withLibsecret = true; }
+          }/bin/git-credential-libsecret";
+        color.ui = true;
+      };
+      ignores = [ "*~" "*.swp" "*result*" "node_modules" ];
+    };
+
+    gh.enable = gitCfg.github.cli-tool.enable;
+    gh-dash.enable = gitCfg.github.dashboard.enable;
+    git-cliff.enable = gitCfg.changelog-helper.enable;
+
   };
 
-  config = let cfg = config.modules.programs;
-  in lib.mkMerge [
-    {
-      home.packages = with pkgs; [
-        bitwarden-desktop
-        obsidian
-        gparted
-        clapper
-        showtime
-        # zapzap
-        # inputs.hyprland-qtutils.packages.${pkgs.system}.hyprland-qtutils
-      ];
-      xdg.desktopEntries."org.gnome.Settings" = {
-        name = "Settings";
-        comment = "Gnome Control Center";
-        icon = "org.gnome.Settings";
-        exec =
-          "env XDG_CURRENT_DESKTOP=gnome ${pkgs.gnome-control-center}/bin/gnome-control-center";
-        categories = [ "X-Preferences" ];
-        terminal = false;
-      };
-
-      programs = {
-        nix-index.enable = true;
-        nix-index.enableBashIntegration = true;
-        pandoc.enable = false;
-      };
-
-    }
-
-    (lib.mkIf cfg.media.enable {
-      home.packages = with pkgs; [ playerctl ];
-      programs = {
-        imv.enable = true;
-        mpv = {
-          enable = true;
-          # defaultprofiles = [ "gpu-hq" ];
-          # scripts = [ pkgs.mpvscripts.mpris ];
-        };
-      };
-      # xdg.mimeapps.defaultapplications = {
-      #   "audio/*" = "mpv.desktop";
-      #   "image/*" = "imv.desktop";
-      #   "video/*" = "mpv.desktop";
-      # };
-    })
-  ];
 }
+)
