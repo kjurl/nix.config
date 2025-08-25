@@ -4,6 +4,7 @@ in lib.mkIf true {
   programs.starship = {
     enable = true;
     enableBashIntegration = true;
+    enableZshIntegration = true;
 
     # Inverted - swaps bg and fg
     # (red) - fg:red and bg is transparent
